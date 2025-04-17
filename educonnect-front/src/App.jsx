@@ -25,10 +25,16 @@
 //       
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; // Import du style
 import RegisterClient from "./pages/registerClient";
 import LoginClient from "./pages/loginClient";
 import RegisterRepetiteur from "./pages/registerRepetiteur";
 import LoginRepetiteur from "./pages/loginRepetiteur";
+import CreateProfilRepetiteur from "./pages/CreateProfilRepetiteur";
+import ClientDashboard from "./pages/clientDash"
+import DashboardRepetiteur from "./pages/repetiteurDash";
+<ToastContainer position="top-right" autoClose={3000} />
 
 export default function App() {
   return (
@@ -38,7 +44,11 @@ export default function App() {
         <Route path="/client/register" element={<RegisterClient />} />
         <Route path="/client/login" element={<LoginClient />} />
         <Route path="/repetiteur/register" element={<RegisterRepetiteur />} />
+        <Route path="/repetiteur/creer-profil" element={<CreateProfilRepetiteur />} />
         <Route path="/repetiteur/login" element={<LoginRepetiteur />} />
+        <Route path="/client/dashboard" element={<ClientDashboard />} />
+        <Route path="/repetiteur/dashboard" element={<DashboardRepetiteur />} />
+
       </Routes>
     </Router>
   );
