@@ -1,213 +1,438 @@
-import { useState } from "react";
-import axios from "../api/axios"; // Ton instance axios personnalisée
+
+
+import { useState, useEffect } from "react";
+import axios from "../api/axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { X } from "lucide-react";
 
-// Composant principal de la page
 export default function CreateProfilRepetiteur() {
-  // State pour les données du formulaire
-  const [profil, setProfil] = useState({
-    nom: "",
-    age: "",
-    ville: "",
-    description: "",
-    disponibilites: [],
-    photo: null,
-  });
+      const [profil, setProfil] = useState({
+          nom: "",
+          age: "",
+          ville: "",
+          description: "",
+          disponibilites: [],
+          photo: null,
+          cours: [],
+          niveaux: [],
+      });
 
-  // Pour afficher un aperçu de la photo uploadée
-  const [previewPhoto, setPreviewPhoto] = useState(null);
+      const [previewPhoto, setPreviewPhoto] = useState(null);
+      const [coursInput, setCoursInput] = useState("");
+      const [isLoading, setIsLoading] = useState(true);
+      const [isEditMode, setIsEditMode] = useState(false);
 
-  // Handle pour les inputs texte / textarea
-  const handleChange = (e) => {
-    setProfil({ ...profil, [e.target.name]: e.target.value });
-  };
+      const parseJSONSafely = (data, fallback = []) => {
+          try {
+              return typeof data === "string" ? JSON.parse(data) : Array.isArray(data) ? data : fallback;
+          } catch {
+              return fallback;
+          }
+      };
 
-  // Handle pour les checkbox de disponibilités
-  const handleDisponibilites = (e) => {
-    const { value, checked } = e.target;
-    let updated = [...profil.disponibilites];
+      useEffect(() => {
+          const fetchProfil = async () => {
+              try {
+                  setIsLoading(true);
+                  const response = await axios.get("/repetiteur/profil");
 
-    // Ajout ou retrait de la valeur selon l'état
-    if (checked) {
-      updated.push(value);
-    } else {
-      updated = updated.filter((d) => d !== value);
-    }
+                  if (response.data) {
+                      setProfil({
+                          nom: response.data.nom || "",
+                          age: response.data.age || "",
+                          ville: response.data.ville || "",
+                          description: response.data.description || "",
+                          disponibilites: response.data.disponibilites || [],
+                          photo: null,
+                          cours: parseJSONSafely(response.data.cours),
+                          niveaux: parseJSONSafely(response.data.niveaux),
+                      });
 
-    setProfil({ ...profil, disponibilites: updated });
-  };
+                      if (response.data.photo_url) {
+                          setPreviewPhoto(response.data.photo_url);
+                      }
 
-  // Handle pour l'image upload
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfil({ ...profil, photo: file });
-      setPreviewPhoto(URL.createObjectURL(file)); // Pour afficher l’image
-    }
-  };
+                      if (response.data.nom) {
+                          setIsEditMode(true);
+                      }
+                  }
+              } catch (error) {
+                  if (error.response?.status !== 404) {
+                      toast.error("Erreur lors du chargement du profil");
+                      console.error("Erreur:", error);
+                  }
+              } finally {
+                  setIsLoading(false);
+              }
+          };
 
-  // Envoi du formulaire
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+          fetchProfil();
+      }, []);
 
-    try {
-        //creation du profil
-      const formData = new FormData();
+      const handleChange = (e) => {
+          setProfil({ ...profil, [e.target.name]: e.target.value });
+      };
 
-      // Ajout des données dans formData (car on envoie un fichier)
-      formData.append("nom", profil.nom);
-      formData.append("age", profil.age);
-      formData.append("ville", profil.ville);
-      formData.append("description", profil.description);
-      if (profil.photo) {
-        formData.append("photo", profil.photo);
-      }      
-    //   formData.append("photo", profil.photo);
-    //   profil.disponibilites.forEach((d, i) =>
-    //     formData.append(`disponibilites[${i}]`, d)
-    profil.disponibilites.forEach((d) =>
-        formData.append("disponibilites[]", d)
-    );
-      // Envoi vers l’API Laravel
-      await axios.post("/repetiteur/profil", formData);
-    //   await axios.post("/repetiteur/profil", formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    alert("Profil créé avec succès !");
-    } catch (err) {
-    //   toast.error(
-    //     err.response?.data?.message || "Erreur lors de la création du profil"
-    //   );
-    if (err.response?.status === 422) {
-        const errors = err.response.data.errors;
-        const messages = Object.values(errors).flat().join("\n");
-        toast.error(messages);
-      } else {
-        toast.error(
-          err.response?.data?.message || "Erreur lors de la création du profil"
-        );
+      const handleDisponibilites = (e) => {
+          const { value, checked } = e.target;
+          setProfil(prev => ({
+              ...prev,
+              disponibilites: checked 
+                  ? [...prev.disponibilites, value] 
+                  : prev.disponibilites.filter(d => d !== value)
+          }));
+      };
+
+      const handleNiveaux = (e) => {
+          const { value, checked } = e.target;
+          setProfil(prev => ({
+              ...prev,
+              niveaux: checked 
+                  ? [...prev.niveaux, value] 
+                  : prev.niveaux.filter(n => n !== value)
+          }));
+      };
+
+      const handlePhotoChange = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+              setProfil({ ...profil, photo: file });
+              setPreviewPhoto(URL.createObjectURL(file));
+          }
+      };
+
+      const handleCoursKeyDown = (e) => {
+          if (e.key === "Enter" && coursInput.trim()) {
+              e.preventDefault();
+              if (!profil.cours.includes(coursInput.trim())) {
+                  setProfil(prev => ({
+                      ...prev,
+                      cours: [...prev.cours, coursInput.trim()]
+                  }));
+              }
+              setCoursInput("");
+          }
+      };
+
+      const removeCours = (coursToRemove) => {
+          setProfil(prev => ({
+              ...prev,
+              cours: prev.cours.filter(c => c !== coursToRemove)
+          }));
+      };
+
+      const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          try {
+              const formData = new FormData();
+
+              formData.append("nom", profil.nom);
+              formData.append("age", profil.age);
+              formData.append("ville", profil.ville);
+              formData.append("description", profil.description);
+
+              if (profil.photo) {
+                  formData.append("photo", profil.photo);
+              } else if (!isEditMode) {
+                  throw new Error("Une photo est requise");
+              }
+
+              profil.disponibilites.forEach(d => formData.append("disponibilites[]", d));
+              profil.cours.forEach(c => formData.append("cours[]", c));
+              profil.niveaux.forEach(n => formData.append("niveaux[]", n));
+
+              const url = "/repetiteur/profil";
+              const method = isEditMode ? "put" : "post";
+
+              await axios[method](url, formData, {
+                  headers: {
+                      "Content-Type": "multipart/form-data"
+                  }
+              });
+
+              toast.success(`Profil ${isEditMode ? 'mis à jour' : 'créé'} avec succès`);
+
+              if (!isEditMode) {
+                  setIsEditMode(true);
+              }
+
+          } catch (error) {
+              if (error.response?.status === 422) {
+                  const errors = error.response.data.errors;
+                  const messages = Object.values(errors).flat().join("\n");
+                  toast.error(messages);
+              } else {
+                  toast.error(error.response?.data?.message || error.message || "Une erreur est survenue");
+              }
+          }
+
+          
+        
+      };
+  
+      const handleUpdate = async () => {
+        const formData = new FormData();
+    
+        formData.append('nom', profil.nom);
+        formData.append('age', profil.age);
+        formData.append('ville', profil.ville);
+        formData.append('description', profil.description);
+        if (profil.photo) formData.append('photo', profil.photo);
+    
+        profil.cours.forEach(c => formData.append('cours[]', c));
+        profil.niveaux.forEach(n => formData.append('niveaux[]', n));
+        profil.disponibilites.forEach(d => formData.append('disponibilites[]', d));
+    
+        try {
+            const response = await axios.put('http://localhost:8000/api/repetiteur/profil', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            alert("Profil mis à jour avec succès !");
+            console.log(response.data);
+        } catch (error) {
+            console.error("Erreur de mise à jour :", error);
+            alert(error?.response?.data?.message || "Erreur lors de la mise à jour");
+        }
+    };
+    
+             
+
+    const handleDelete = async () => {
+      if (!window.confirm("Es-tu sûr de vouloir supprimer ton profil ? Cette action est irréversible.")) return;
+    
+      try {
+        const response = await axios.delete('http://localhost:8000/api/repetiteur/profil', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+    
+        alert('Profil supprimé avec succès !');
+        // Redirection ou rafraîchissement
+        window.location.href = '/repetiteur/creer-profil'; // ou une autre page
+      } catch (error) {
+        console.error('Erreur de suppression :', error);
+        alert(error?.response?.data?.message || 'Erreur lors de la suppression');
       }
-      
+    };
+
+    if (isLoading) {
+        return <div className="text-center py-8">Chargement...</div>;
     }
-  };
 
-  return (
-    <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
-      {/* Formulaire de création */}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-xl p-6 space-y-4"
-      >
-        <h2 className="text-2xl font-bold text-center mb-4">
-          Créer mon profil
-        </h2>
+    return (
+        <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
+            {/* Formulaire */}
+            <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 space-y-4">
+                <h2 className="text-2xl font-bold text-center mb-4">
+                    {isEditMode ? "Modifier mon profil" : "Créer mon profil"}
+                </h2>
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handlePhotoChange}
-          className="w-full"
-          required
-        />
+                {/* Photo */}
+                <div>
+                    <label className="block font-medium mb-2">Photo {!isEditMode && "*"}</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePhotoChange}
+                        className="w-full"
+                        required={!isEditMode}
+                    />
+                    {previewPhoto && (
+                        <div className="mt-2">
+                            <img 
+                                src={previewPhoto} 
+                                alt="Preview" 
+                                className="w-20 h-20 rounded-full object-cover"
+                            />
+                        </div>
+                    )}
+                </div>
 
-        <input
-          type="text"
-          name="nom"
-          value={profil.nom}
-          onChange={handleChange}
-          placeholder="Nom"
-          className="input w-full"
-          required
-        />
+                {/* Champs texte */}
+                {["nom", "age", "ville"].map((field) => (
+                    <div key={field}>
+                        <label className="block font-medium mb-2 capitalize">{field} *</label>
+                        <input
+                            type={field === "age" ? "number" : "text"}
+                            name={field}
+                            value={field === "age" && profil[field] === "" ? "" : profil[field]}
+                            onChange={(e) => {
+                                const value = field === "age" 
+                                    ? e.target.value === "" 
+                                        ? "" 
+                                        : parseInt(e.target.value, 10)
+                                    : e.target.value;
 
-        <input
-          type="number"
-          name="age"
-          value={profil.age}
-          onChange={handleChange}
-          placeholder="Âge"
-          className="input w-full"
-          required
-        />
-
-        <input
-          type="text"
-          name="ville"
-          value={profil.ville}
-          onChange={handleChange}
-          placeholder="Ville"
-          className="input w-full"
-          required
-        />
-
-        <textarea
-          name="description"
-          value={profil.description}
-          onChange={handleChange}
-          placeholder="Méthode d'enseignement / description"
-          className="textarea w-full"
-          rows={4}
-          required
-        />
-
-        <div>
-          <p className="font-semibold mb-2">Disponibilités (2 à 3 jours) :</p>
-          {["lundi","mardi", "mercredi","jeudi", "vendredi", "samedi",  "Dimanche"].map((day) => (
-            <label key={day} className="mr-4 inline-flex items-center space-x-1">
-              <input
-                type="checkbox"
-                value={day}
-                checked={profil.disponibilites.includes(day)}
-                onChange={handleDisponibilites}
-              />
-              <span>{day}</span>
-            </label>
-          ))}
-        </div>
-
-        <button className="bg-blue-600 text-white w-full py-2 rounded-xl hover:bg-blue-700">
-          Créer mon profil
-        </button>
-      </form>
-
-      {/* Preview stylisée du profil */}
-      <div className="bg-gray-100 p-6 rounded-xl shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Aperçu du profil</h2>
-
-        <div className="text-center space-y-4">
-          {previewPhoto && (
-            <img
-              src={previewPhoto}
-              alt="Preview"
-              className="w-32 h-32 mx-auto rounded-full object-cover"
-            />
-          )}
-
-          <h3 className="text-lg font-semibold">{profil.nom || "Nom"}</h3>
-          <p>{profil.age ? `${profil.age} ans` : "Âge"}</p>
-          <p className="italic">{profil.ville || "Ville"}</p>
-
-          <p className="text-sm text-gray-700">{profil.description}</p>
-
-          {profil.disponibilites.length > 0 && (
-            <div>
-              <p className="font-semibold mt-2">Disponible :</p>
-              <ul className="flex justify-center flex-wrap gap-2 text-sm">
-                {profil.disponibilites.map((day) => (
-                  <li key={day} className="bg-blue-100 px-2 py-1 rounded-full">
-                    {day}
-                  </li>
+                                handleChange({
+                                    target: {
+                                        name: e.target.name,
+                                        value: value
+                                    }
+                                });
+                            }}
+                            className="input w-full"
+                            required
+                            min={field === "age" ? 18 : undefined}
+                            max={field === "age" ? 50 : undefined}
+                        />
+                    </div>
                 ))}
-              </ul>
-            </div>
-          )}
 
-          <button className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-            Soumettre mon profil
-          </button>
+                {/* Description */}
+                <div>
+                    <label className="block font-medium mb-2">Description *</label>
+                    <textarea
+                        name="description"
+                        value={profil.description}
+                        onChange={handleChange}
+                        className="textarea w-full"
+                        rows={4}
+                        required
+                    />
+                </div>
+
+                {/* Disponibilités */}
+                <div>
+                    <label className="block font-medium mb-2">Disponibilités (2-3 jours) *</label>
+                    <div className="flex flex-wrap gap-3">
+                        {["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"].map((day) => (
+                            <label key={day} className="inline-flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    value={day}
+                                    checked={profil.disponibilites.includes(day)}
+                                    onChange={handleDisponibilites}
+                                    className="rounded"
+                                />
+                                <span className="capitalize">{day}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Cours */}
+                <div>
+                    <label className="block font-medium mb-2">Cours enseignés *</label>
+                    <input
+                        type="text"
+                        value={coursInput}
+                        onChange={(e) => setCoursInput(e.target.value)}
+                        onKeyDown={handleCoursKeyDown}
+                        placeholder="Ajouter une matière (Entrée pour valider)"
+                        className="input w-full"
+                    />
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {profil.cours.map((c) => (
+                            <span key={c} className="badge bg-green-100 text-green-800">
+                                {c}
+                                <button
+                                    type="button"
+                                    onClick={() => removeCours(c)}
+                                    className="ml-2 text-red-500"
+                                >
+                                    <X size={14} />
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Niveaux */}
+                <div>
+                    <label className="block font-medium mb-2">Niveaux enseignés *</label>
+                    <div className="flex flex-wrap gap-3">
+                        {["6e", "5e", "4e", "3e", "2nde", "1re", "terminale"].map((niveau) => (
+                            <label key={niveau} className="inline-flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    value={niveau}
+                                    checked={profil.niveaux.includes(niveau)}
+                                    onChange={handleNiveaux}
+                                    className="rounded"
+                                />
+                                <span>{niveau}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                <button  onClick={handleUpdate} type="submit" className="btn-primary w-full">
+                    {isEditMode ? "Mettre à jour" : "Créer"} mon profil
+                </button>
+                <button onClick={handleDelete} className="btn btn-danger">
+                  Supprimer mon profil
+                </button>
+
+
+            </form>
+
+            {/* Aperçu */}
+            <div className="bg-gray-50 p-6 rounded-xl shadow-lg">
+                <h2 className="text-xl font-bold mb-4">Aperçu du profil</h2>
+                <div className="text-center space-y-4">
+                    {previewPhoto ? (
+                        <img src={previewPhoto} alt="Preview" className="w-32 h-32 mx-auto rounded-full object-cover" />
+                    ) : (
+                        <div className="w-32 h-32 mx-auto rounded-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-500">Pas de photo</span>
+                        </div>
+                    )}
+
+                    <h3 className="text-lg font-semibold">{profil.nom || "Nom non renseigné"}</h3>
+                    <p>{profil.age ? `${profil.age} ans` : "Âge non renseigné"}</p>
+                    <p className="italic">{profil.ville || "Ville non renseignée"}</p>
+                    <p className="text-sm text-gray-700">
+                        {profil.description || "Aucune description fournie"}
+                    </p>
+
+                    {/* Disponibilités */}
+                    {profil.disponibilites.length > 0 ? (
+                        <div className="text-left">
+                            <p className="font-semibold">Disponibilités :</p>
+                            <ul className="list-disc pl-5">
+                                {profil.disponibilites.map((day) => (
+                                    <li key={day} className="capitalize">{day}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <p className="text-gray-500">Aucune disponibilité renseignée</p>
+                    )}
+
+                    {/* Cours */}
+                    {profil.cours.length > 0 ? (
+                        <div className="text-left">
+                            <p className="font-semibold">Cours enseignés :</p>
+                            <ul className="list-disc pl-5">
+                                {profil.cours.map((cours) => (
+                                    <li key={cours}>{cours}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <p className="text-gray-500">Aucun cours renseigné</p>
+                    )}
+
+                    {/* Niveaux */}
+                    {profil.niveaux.length > 0 ? (
+                        <div className="text-left">
+                            <p className="font-semibold">Niveaux enseignés :</p>
+                            <ul className="list-disc pl-5">
+                                {profil.niveaux.map((niveau) => (
+                                    <li key={niveau}>{niveau}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <p className="text-gray-500">Aucun niveau renseigné</p>
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }

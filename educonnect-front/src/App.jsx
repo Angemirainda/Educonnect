@@ -32,22 +32,29 @@ import LoginClient from "./pages/loginClient";
 import RegisterRepetiteur from "./pages/registerRepetiteur";
 import LoginRepetiteur from "./pages/loginRepetiteur";
 import CreateProfilRepetiteur from "./pages/CreateProfilRepetiteur";
+import AdminRepetiteur from "./pages/AdminDash";
 import ClientDashboard from "./pages/clientDash"
+import Home from "./pages/homePage"
 import DashboardRepetiteur from "./pages/repetiteurDash";
+import LoginAdmin from "./pages/loginAdmin"; 
 <ToastContainer position="top-right" autoClose={3000} />
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/home" element={<Home />} />
         <Route path="/client/register" element={<RegisterClient />} />
         <Route path="/client/login" element={<LoginClient />} />
         <Route path="/repetiteur/register" element={<RegisterRepetiteur />} />
         <Route path="/repetiteur/creer-profil" element={<CreateProfilRepetiteur />} />
         <Route path="/repetiteur/login" element={<LoginRepetiteur />} />
+        <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/client/dashboard" element={<ClientDashboard />} />
+        <Route path="/admin/dashboard" element={<ClientDashboard />} />
         <Route path="/repetiteur/dashboard" element={<DashboardRepetiteur />} />
+        <Route path="/profil/edit/:profilId" element={<CreateProfilRepetiteur />} />
+
 
       </Routes>
     </Router>
