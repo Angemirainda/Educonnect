@@ -1,60 +1,11 @@
-// "use client";
-// import * as React from "react";
-
-// function Navbar() {
-//   return (
-//     <header>
-//       <nav className="flex justify-between items-center px-5 py-0 mx-auto my-0 w-full max-w-[1130px] max-md:px-4 max-md:py-0 max-sm:px-2.5 max-sm:py-0">
-//         <h1 className="text-4xl font-bold text-blue-600 max-md:text-3xl max-sm:text-2xl">
-//           Educonnect
-//         </h1>
-//         <ul className="flex gap-5 max-sm:hidden">
-//           <li>
-//             <a
-//               href="#"
-//               className="text-2xl font-semibold text-black max-md:text-xl"
-//             >
-//               Accueil
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               href="#"
-//               className="text-2xl font-semibold text-black max-md:text-xl"
-//             >
-//               Donner cours
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               href="#"
-//               className="text-2xl font-semibold text-black max-md:text-xl"
-//             >
-//               Connexion
-//             </a>
-//           </li>
-//           <li>
-//             <a
-//               href="#"
-//               className="text-2xl font-semibold text-black max-md:text-xl"
-//             >
-//               Contact
-//             </a>
-//           </li>
-//         </ul>
-//       </nav>
-//     </header>
-//   );
-// }
-
-// export default Navbar;
-
 
 "use client";
 import React from "react";
-import Header from "../components/header";
-import HeroSection from "../components/HeroSection";
+import { Link } from "react-router-dom"; // Import du composant Link
+import Footer from "../components/Footercompo";
 import SubjectCategories from "../components/SubjectCategories";
+
+
 
 function EduconnectLanding() {
 
@@ -67,9 +18,7 @@ function EduconnectLanding() {
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&family=Poppins:wght@600;700&display=swap"
       />
       <main className="">
-        {/* <Header />
-        <HeroSection />
-        <SubjectCategories /> */}
+        
         <div className="bg-gradient-to-t from-blue-500 via-blue-300  w-fuh-150 h-150 rounded-b-4xl box-border px-5 py-0 mx-auto my-0 w-full max-w-[1180px] max-md:max-w-[991px] max-sm:max-w-screen-sm">
         <header className="flex justify-between items-center px-0 py-5 max-sm:flex-col max-sm:items-start">
           <h1 className="text-4xl font-bold text-blue-600">Educonnect</h1>
@@ -105,144 +54,119 @@ function EduconnectLanding() {
           </section>
           <SubjectCategories />
         </div>
-        
-          <h1 className="text-xl font-bold rounded-t-xl text-black px-35 py-4">Nous vous proposons une large gamme de <br />professeurs experimente</h1>
-          <div className="container px-35">
-            <div className="row-1 flex justify-center items-center gap-7">
-              <div className=" row-11 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+       
+          <div className="container-princ px-35">
+            <h1 className="text-xl font-bold rounded-t-xl text-black py-4">Nous vous proposons une large gamme de <br />professeurs experimente</h1>
+            <div className="container1 ">
+              <div className="row-1 flex w-full justify-center h-auto item-center gap-28">
+                <div className=" row-11 rounded-t-xl w-215 h-80" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
-              </div>
-              <div className=" row-12 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
+                <div className=" row-12 rounded-t-xl w-215 h-80" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
-              </div>
-              <div className=" row-13 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
+                <div className=" row-13 rounded-t-xl w-215 h-auto" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
               </div>
-              <div className=" row-14 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+              <div className="container2 ">
+              <div className="row-1 flex py-5 w-full justify-center h-auto item-center gap-28">
+                <div className=" row-11 rounded-t-xl w-215 h-80" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
-              </div>
-            </div>
-            <div className="row-2 flex justify-center items-center gap-7 py-40">
-              <div className=" row-21 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
+                <div className=" row-12 rounded-t-xl w-215 h-80" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
-              </div>
-              <div className=" row-22 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
+                <div className=" row-13 rounded-t-xl w-215 h-auto" >
+                      <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
+                      <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
+                      <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
+                      <div className="px-2 flex gap-1 justify-end  -mt-7 mr-9 ">
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
+                        <i className="fas fa-star text-yellow-500 "></i>
                     </div>
+                      <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
+                      </p>
+                      <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
+                      <div className=" flex justify-center items-center py-1">
+                        <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
+                      </div>
+                </div>
+                </div>
               </div>
-              <div className=" row-23 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
-                    </div>
-              </div>
-              <div className=" row-24 rounded-t-xl w-120 h-80" >
-                    <img src="/image/Rectangle 5.png" alt="" className="  rounded-t-xl w-70 h-60 object-cover"  />
-                    <p className="text-white font-semibold  px-2 text-lg -mt-15">Stella Kameni</p>
-                    <p className="text-white font-semibold px-2 text-lg  ">Deido</p>
-                    <div className="px-2 flex gap-1 justify-end -mt-7">
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                      <i className="fas fa-star text-yellow-500 "></i>
-                  </div>
-                    <p className="font-semibold text-sm px-2 text-center mt-5">professeur de Francais et philosiphie age <br /> de 33ans.j’utilise une methode d’enseignement base par un approche pas compenter de d’eleve. 
-                    </p>
-                    <p className="font-bold text-center px-2">50000fcfa/mois <span className="font-semibold text-blue-600 text-sm">1er cours offert</span></p>
-                    <div className=" flex justify-center items-center py-1">
-                      <button className=" text-white font-bold text-lg bg-blue-600 rounded-full w-40 h-9.5">Voir plus</button>
-                    </div>
-              </div>
-            </div>
+           
+             
           </div>
-          <div className="px-35 flex gap-10">
-            <div className="py-40">
+          </div>
+          <div className="px-35 py-10 flex gap-10">
+            <div className="py-30">
               <h1 className="font-bold text-2xl">Satisfaction garantie</h1>
               <p className="font-semibold text-lg leading-">Des  milliers de parents et d’eleve sont <br /> satisfait par la qualite de nos services et le <br /> professionalisme de nos repetirrteurs </p>
             </div>
@@ -285,13 +209,117 @@ function EduconnectLanding() {
             </div>
            </div>
           </div>
-          <div className="px-35 h-150 w-full relative">
+          <div className="px-35 py-10 h-150 w-full relative">
             <img src="/image/Rectangle 9.png" alt="" className="h-150 w-full object-cover  rounded-xl" />
-            <div className="px-4 py-2 w-120 h-70 rounded-xl bg-white border  top-62 absolute right-2">
+            <div className="px-7 py-3 w-120 h-75 rounded-2xl bg-white  top-75 absolute right-50">
               <p className="font-bold text-blue-600 text-2xl">Educonnect</p>
+              <p className="font-bold text-3xl">Vous aussi , devenner un repetiteur de la team Educonnect</p>
+              <p className="mt-2 font-semibold">partager votre savoir avec des personne en deficulter <br />tout en vous faisant de l’argent</p>
+              <button className="w-full h-15 bg-blue-600 hover:bg-blue-800 text-white rounded-full text-2xl font-semibold my-3">
+               <Link to="/repetiteur/register" className=" ">
+                  En savoir plus
+                </Link>
+                </button>
             </div>
           </div>
-       
+          <div className="px-35 py-15 h-150 w-full">
+            <p className="text-4xl font-bold">Explorer les repetiteurs de <br />votre ville</p>
+            <div className="py-10 flex gap-20">
+              <div className="cont-1 w-65 rounded-4xl bg-gray-100 px-5 py-5">
+                <div>
+                  <h2 className="font-bold text-xl">Makepe</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Bepanda</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Deido</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+              </div>
+              <div className="cont-1 w-65 rounded-4xl bg-gray-100 px-5 py-5">
+                <div>
+                  <h2 className="font-bold text-xl">Logpom</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Logbessou</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Logbaba</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+              </div>
+              <div className="cont-1 w-65 rounded-4xl bg-gray-100 px-5 py-5">
+                <div>
+                  <h2 className="font-bold text-xl">Bonamoussadi</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Bonaberi</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Bonapriso</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+              </div>
+              <div className="cont-1 w-65 rounded-4xl bg-gray-100 px-5 py-5">
+                <div>
+                  <h2 className="font-bold text-xl">Makepe</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Bepanda</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-xl">Deido</h2>
+                  <p className="text-lg">Mathematiques</p>
+                  <p className="text-lg">Francais</p>
+                  <p className="text-lg">chimie</p>
+                  <p className="text-lg">Informatique</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Footer/>
       </main>
     </>
   );
