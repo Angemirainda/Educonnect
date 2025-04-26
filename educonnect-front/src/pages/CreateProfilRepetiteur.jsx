@@ -5,6 +5,7 @@ import axios from "../api/axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { X } from "lucide-react";
+import Navbar from "../components/Navbar1";
 
 export default function CreateProfilRepetiteur() {
       const [profil, setProfil] = useState({
@@ -32,7 +33,7 @@ export default function CreateProfilRepetiteur() {
       };
 
       useEffect(() => {
-          const fetchProfil = async () => {
+            const fetchProfil = async () => {
               try {
                   setIsLoading(true);
                   const response = await axios.get("/repetiteur/profil");
@@ -225,214 +226,226 @@ export default function CreateProfilRepetiteur() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
-            {/* Formulaire */}
-            <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 space-y-4">
-                <h2 className="text-2xl font-bold text-center mb-4">
-                    {isEditMode ? "Modifier mon profil" : "Créer mon profil"}
-                </h2>
+        <div className="bg-gradient-to-t from-blue-500 via-blue-300 ">
+            <Navbar />
+            <div className="max-w-6xl py-20 mx-auto p-6 grid md:grid-cols-2 gap-10">
+                {/* Formulaire */}
+                <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 space-y-4">
+                    <h2 className="text-2xl font-bold text-center mb-4">
+                        {isEditMode ? "Modifier mon profil" : "Créer mon profil"}
+                    </h2>
 
-                {/* Photo */}
-                <div>
-                    <label className="block font-medium mb-2">Photo {!isEditMode && "*"}</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handlePhotoChange}
-                        className="w-full"
-                        required={!isEditMode}
-                    />
-                    {previewPhoto && (
-                        <div className="mt-2">
-                            <img 
-                                src={previewPhoto} 
-                                alt="Preview" 
-                                className="w-20 h-20 rounded-full object-cover"
+                    {/* Photo */}
+                    <div>
+                        <label className="block text-lg font-medium mb-2">Photo {!isEditMode && "*"}</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
+                            className="w-full  rounded-lg p-2 bg-gray-100"
+                            required={!isEditMode}
+                        />
+                        {previewPhoto && (
+                            <div className="mt-2">
+                                <img 
+                                    src={previewPhoto} 
+                                    alt="Preview" 
+                                    className="w-20 h-20 rounded-full object-cover"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Champs texte */}
+                    {["nom", "age", "ville"].map((field) => (
+                        <div key={field}>
+                            <label className="block font-medium mb-2 capitalize">{field} </label>
+                            <input
+                                type={field === "age" ? "number" : "text"}
+                                name={field}
+                                value={field === "age" && profil[field] === "" ? "" : profil[field]}
+                                onChange={(e) => {
+                                    const value = field === "age" 
+                                        ? e.target.value === "" 
+                                            ? "" 
+                                            : parseInt(e.target.value, 10)
+                                        : e.target.value;
+
+                                    handleChange({
+                                        target: {
+                                            name: e.target.name,
+                                            value: value
+                                        }
+                                    });
+                                }}
+                                className="input w-full text-lg rounded-lg p-2 bg-gray-100"
+                                required
+                                min={field === "age" ? 18 : undefined}
+                                max={field === "age" ? 50 : undefined}
                             />
                         </div>
-                    )}
-                </div>
+                    ))}
 
-                {/* Champs texte */}
-                {["nom", "age", "ville"].map((field) => (
-                    <div key={field}>
-                        <label className="block font-medium mb-2 capitalize">{field} *</label>
-                        <input
-                            type={field === "age" ? "number" : "text"}
-                            name={field}
-                            value={field === "age" && profil[field] === "" ? "" : profil[field]}
-                            onChange={(e) => {
-                                const value = field === "age" 
-                                    ? e.target.value === "" 
-                                        ? "" 
-                                        : parseInt(e.target.value, 10)
-                                    : e.target.value;
-
-                                handleChange({
-                                    target: {
-                                        name: e.target.name,
-                                        value: value
-                                    }
-                                });
-                            }}
-                            className="input w-full"
+                    {/* Description */}
+                    <div>
+                        <label className="block text-lg font-medium mb-2">Description </label>
+                        <textarea
+                            name="description"
+                            value={profil.description}
+                            onChange={handleChange}
+                            className="textarea w-full rounded-lg p-2 bg-gray-100"
+                            rows={4}
                             required
-                            min={field === "age" ? 18 : undefined}
-                            max={field === "age" ? 50 : undefined}
                         />
                     </div>
-                ))}
-
-                {/* Description */}
-                <div>
-                    <label className="block font-medium mb-2">Description *</label>
-                    <textarea
-                        name="description"
-                        value={profil.description}
-                        onChange={handleChange}
-                        className="textarea w-full"
-                        rows={4}
-                        required
-                    />
-                </div>
-
-                {/* Disponibilités */}
-                <div>
-                    <label className="block font-medium mb-2">Disponibilités (2-3 jours) *</label>
-                    <div className="flex flex-wrap gap-3">
-                        {["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"].map((day) => (
-                            <label key={day} className="inline-flex items-center space-x-2">
-                                <input
-                                    type="checkbox"
-                                    value={day}
-                                    checked={profil.disponibilites.includes(day)}
-                                    onChange={handleDisponibilites}
-                                    className="rounded"
-                                />
-                                <span className="capitalize">{day}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Cours */}
-                <div>
-                    <label className="block font-medium mb-2">Cours enseignés *</label>
-                    <input
-                        type="text"
-                        value={coursInput}
-                        onChange={(e) => setCoursInput(e.target.value)}
-                        onKeyDown={handleCoursKeyDown}
-                        placeholder="Ajouter une matière (Entrée pour valider)"
-                        className="input w-full"
-                    />
-                    <div className="flex flex-wrap gap-2 mt-2">
-                        {profil.cours.map((c) => (
-                            <span key={c} className="badge bg-green-100 text-green-800">
-                                {c}
-                                <button
-                                    type="button"
-                                    onClick={() => removeCours(c)}
-                                    className="ml-2 text-red-500"
-                                >
-                                    <X size={14} />
-                                </button>
-                            </span>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Niveaux */}
-                <div>
-                    <label className="block font-medium mb-2">Niveaux enseignés *</label>
-                    <div className="flex flex-wrap gap-3">
-                        {["6e", "5e", "4e", "3e", "2nde", "1re", "terminale"].map((niveau) => (
-                            <label key={niveau} className="inline-flex items-center space-x-2">
-                                <input
-                                    type="checkbox"
-                                    value={niveau}
-                                    checked={profil.niveaux.includes(niveau)}
-                                    onChange={handleNiveaux}
-                                    className="rounded"
-                                />
-                                <span>{niveau}</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-
-                <button  onClick={handleUpdate} type="submit" className="btn-primary w-full">
-                    {isEditMode ? "Mettre à jour" : "Créer"} mon profil
-                </button>
-                <button onClick={handleDelete} className="btn btn-danger">
-                  Supprimer mon profil
-                </button>
-
-
-            </form>
-
-            {/* Aperçu */}
-            <div className="bg-gray-50 p-6 rounded-xl shadow-lg">
-                <h2 className="text-xl font-bold mb-4">Aperçu du profil</h2>
-                <div className="text-center space-y-4">
-                    {previewPhoto ? (
-                        <img src={previewPhoto} alt="Preview" className="w-32 h-32 mx-auto rounded-full object-cover" />
-                    ) : (
-                        <div className="w-32 h-32 mx-auto rounded-full bg-gray-200 flex items-center justify-center">
-                            <span className="text-gray-500">Pas de photo</span>
-                        </div>
-                    )}
-
-                    <h3 className="text-lg font-semibold">{profil.nom || "Nom non renseigné"}</h3>
-                    <p>{profil.age ? `${profil.age} ans` : "Âge non renseigné"}</p>
-                    <p className="italic">{profil.ville || "Ville non renseignée"}</p>
-                    <p className="text-sm text-gray-700">
-                        {profil.description || "Aucune description fournie"}
-                    </p>
 
                     {/* Disponibilités */}
-                    {profil.disponibilites.length > 0 ? (
-                        <div className="text-left">
-                            <p className="font-semibold">Disponibilités :</p>
-                            <ul className="list-disc pl-5">
-                                {profil.disponibilites.map((day) => (
-                                    <li key={day} className="capitalize">{day}</li>
-                                ))}
-                            </ul>
+                    <div>
+                        <label className="block text-lg font-medium mb-2">Disponibilités (2-3 jours) </label>
+                        <div className="flex flex-wrap gap-3">
+                            {["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"].map((day) => (
+                                <label key={day} className="inline-flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        value={day}
+                                        checked={profil.disponibilites.includes(day)}
+                                        onChange={handleDisponibilites}
+                                        className="rounded"
+                                    />
+                                    <span className="capitalize">{day}</span>
+                                </label>
+                            ))}
                         </div>
-                    ) : (
-                        <p className="text-gray-500">Aucune disponibilité renseignée</p>
-                    )}
+                    </div>
 
                     {/* Cours */}
-                    {profil.cours.length > 0 ? (
-                        <div className="text-left">
-                            <p className="font-semibold">Cours enseignés :</p>
-                            <ul className="list-disc pl-5">
-                                {profil.cours.map((cours) => (
-                                    <li key={cours}>{cours}</li>
-                                ))}
-                            </ul>
+                    <div>
+                        <label className="block  text-lg font-medium mb-2">Cours enseignés </label>
+                        <input
+                            type="text"
+                            value={coursInput}
+                            onChange={(e) => setCoursInput(e.target.value)}
+                            onKeyDown={handleCoursKeyDown}
+                            placeholder="Ajouter une matière (Entrée pour valider)"
+                            className="input w-full"
+                        />
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            {profil.cours.map((c) => (
+                                <span key={c} className="badge bg-green-100 text-green-800">
+                                    {c}
+                                    <button
+                                        type="button"
+                                        onClick={() => removeCours(c)}
+                                        className="ml-2 text-red-500"
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                </span>
+                            ))}
                         </div>
-                    ) : (
-                        <p className="text-gray-500">Aucun cours renseigné</p>
-                    )}
+                    </div>
 
                     {/* Niveaux */}
-                    {profil.niveaux.length > 0 ? (
-                        <div className="text-left">
-                            <p className="font-semibold">Niveaux enseignés :</p>
-                            <ul className="list-disc pl-5">
-                                {profil.niveaux.map((niveau) => (
-                                    <li key={niveau}>{niveau}</li>
-                                ))}
-                            </ul>
+                    <div>
+                        <label className="block text-lg font-medium mb-2">Niveaux enseignés </label>
+                        <div className="flex flex-wrap gap-3">
+                            {["6e", "5e", "4e", "3e", "2nde", "1re", "terminale"].map((niveau) => (
+                                <label key={niveau} className="inline-flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        value={niveau}
+                                        checked={profil.niveaux.includes(niveau)}
+                                        onChange={handleNiveaux}
+                                        className="rounded"
+                                    />
+                                    <span>{niveau}</span>
+                                </label>
+                            ))}
                         </div>
-                    ) : (
-                        <p className="text-gray-500">Aucun niveau renseigné</p>
-                    )}
+                    </div>
+
+                    <button  onClick={handleUpdate} type="submit" className="btn-primary w-full">
+                        {isEditMode ? "Mettre à jour" : "Créer"} mon profil
+                    </button>
+                    <button onClick={handleDelete} className="btn btn-danger">
+                    Supprimer mon profil
+                    </button>
+
+
+                </form>
+
+                {/* Aperçu */}
+                <div className="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 className="text-3xl text-center m-3 font-bold mb-4">Aperçu du profil</h2>
+                    <div className="text-center space-y-4">
+                    <div className="flex justify-between px-10 ">
+                            <div className="mt-8">
+                                <h3 className="text-3xl text-blue-600  font-bold">{profil.nom || "Nom non renseigné"}</h3>
+                                <p className="text-2xl font-semibold">{profil.age ? `${profil.age} ans` : "Âge non renseigné"}</p>
+                                <p className="text-2xl font-semibold">{profil.ville || "Ville non renseignée"}</p>
+                            </div>
+                            {previewPhoto ? (
+                                    <img src={previewPhoto} alt="Preview" className="w-50 h-50 object-cover" />
+                                ) : (
+                                    <div className="w-50 h-50 mx-auto bg-gray-200 flex items-center justify-center">
+                                        <span className="text-gray-500">Pas de photo</span>
+                                    </div>
+                                )}
+                    </div>
+                    <p className="font-bold text-2xl py-4">A PROPOS DE MOI</p>
+                    <div className="flex items-center mt-4 rounded-xl shadow-lg px-2">
+                            <img src="/image/3959384.jpg" alt="" className="w-70 h-70" />
+                            <p className="text-sm">
+                            {profil.description || "Aucune description fournie"}
+                            </p>
+                    </div>
+                    
+
+                        {/* Disponibilités */}
+                        {profil.disponibilites.length > 0 ? (
+                            <div className="text-left  px-10">
+                                <p className="font-semibold">Disponibilités :</p>
+                                <ul className="list-disc pl-5">
+                                    {profil.disponibilites.map((day) => (
+                                        <li key={day} className="capitalize">{day}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">Aucune disponibilité renseignée</p>
+                        )}
+
+                        {/* Cours */}
+                        {profil.cours.length > 0 ? (
+                            <div className="text-left  px-10">
+                                <p className="font-semibold">Cours enseignés :</p>
+                                <ul className="list-disc pl-5">
+                                    {profil.cours.map((cours) => (
+                                        <li key={cours}>{cours}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">Aucun cours renseigné</p>
+                        )}
+
+                        {/* Niveaux */}
+                        {profil.niveaux.length > 0 ? (
+                            <div className="text-left  px-10">
+                                <p className="font-semibold">Niveaux enseignés :</p>
+                                <ul className="list-disc pl-5">
+                                    {profil.niveaux.map((niveau) => (
+                                        <li key={niveau}>{niveau}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : (
+                            <p className="text-gray-500">Aucun niveau renseigné</p>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+
+    </div>
+            );
 }
