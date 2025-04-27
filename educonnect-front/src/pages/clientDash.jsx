@@ -38,7 +38,7 @@
 
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "../api/axios";
 
 export default function ClientDashboard() {
@@ -88,6 +88,11 @@ export default function ClientDashboard() {
       >
         Se déconnecter
       </button>
+       <button className="px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white rounded-xl  font-semibold">
+          <Link to="/commentaire" className=" ">
+            commentaire
+          </Link>
+        </button>
     </div>
   );
 }

@@ -39,6 +39,9 @@ import DashboardRepetiteur from "./pages/repetiteurDash";
 import LoginAdmin from "./pages/loginAdmin"; 
 import Services from "./pages/Services";
 import RepetiteurDetail from "./pages/RepetiteurDetail";
+import CreateCommentaire from "./pages/Commentaire";
+
+
 <ToastContainer position="top-right" autoClose={3000} />
 
 export default function App() {
@@ -58,6 +61,8 @@ export default function App() {
         <Route path="/profil/edit/:profilId" element={<CreateProfilRepetiteur />} />
         <Route path="/services" element={<Services />} />
         <Route path="/profil/:id" element={<RepetiteurDetail />} />
+        <Route path="/commentaire" element={<CreateCommentaire />} />
+        
 
 
       </Routes>
