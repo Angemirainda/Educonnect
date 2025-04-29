@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@keyframes bubbleRebound {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+.bubble {
+  animation: bubbleRebound infinite alternate;
+}
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

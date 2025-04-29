@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom"; // Import du composant Link
-import Navbar from "../components/Navbar1";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faEnvelope, faLock, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"; // Icônes que tu souhaites utiliser
 import axios from "../api/axios";
 
 export default function LoginClient() {
@@ -34,101 +35,64 @@ export default function LoginClient() {
     }
   };
 
-//   return (
-//     <div className="flex gap-5 max-w-4xl mx-auto mt-40 p-6 bg-white shadow-lg rounded-xl">
-//       <div>
-//         <img src="/image/3793121.jpg" alt="" className="w-100 h-100" />
-//       </div>
-//       <div className="py-2">
-//         <h2 className="text-4xl font-bold mb-4 text-center">Connexion </h2>
-//         <form onSubmit={handleSubmit} className="space-y-4">
-//          <div className="mx-5">
-//             <label htmlFor="" className="block text-lg font-semibold">Email</label>
-//             <input
-//              className="input h-10 w-full rounded-lg bg-gray-100 px-3"
-//               name="email"
-//               onChange={handleChange}
-//               type="email"
-//               placeholder="Email..."
-//               required
-//             />
-//          </div>
-//           <div className="mx-5">
-//             <label htmlFor="" className="block text-lg font-semibold">Mot de passe</label>
-//               <input
-//              className="input h-10 w-full rounded-lg bg-gray-100 px-3"
-//               name="password"
-//               onChange={handleChange}
-//               type="password"
-//               placeholder="Mot de passe..."
-//               required
-//             />
-//           </div>
-//          <div className="mx-5">
-//           <button className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700">
-//               Se connecter
-//             </button>
-//          </div>
-//         </form>
-//         <p className="mt-4 text-center">
-//         Vous n'avez pas encore de compte ?{" "}
-//         <Link to="/client/register" className="text-blue-600 hover:underline">
-//           Inscrivez-vous ici
-//         </Link>
-//       </p>
-//       </div>
-     
-//     </div>
-//   );
-return (
-  <div>
-     <Navbar />
-    <div className="min-h-screen  flex items-center justify-center bg-gray-100">
-    <div className="flex flex-col lg:flex-row gap-5 max-w-4xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-xl">
-    <div className="w-full lg:w-1/2 flex items-center justify-center">
-      <img src="/image/3793121.jpg" alt="" className="w-full h-auto object-cover rounded-xl" />
-    </div>
-    <div className="w-full lg:w-1/2 py-2">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center">Connexion</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 px-2 sm:px-5">
-        <div>
-          <label htmlFor="" className="block text-base sm:text-lg font-semibold">Email</label>
-          <input
-            className="input h-10 w-full rounded-lg bg-gray-100 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            name="email"
-            onChange={handleChange}
-            type="email"
-            placeholder="Email..."
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="" className="block text-base sm:text-lg font-semibold">Mot de passe</label>
-          <input
-            className="input h-10 w-full rounded-lg bg-gray-100 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            name="password"
-            onChange={handleChange}
-            type="password"
-            placeholder="Mot de passe..."
-            required
-          />
-        </div>
-        <div>
-          <button className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700">
-            Se connecter
-          </button>
-        </div>
-      </form>
-      <p className="mt-4 text-center text-sm sm:text-base">
+  return (
+    <div className=" flex items-center justify-center py-14 bg-cover bg-center bg-cover"  style={{ backgroundImage: 'url(/image/fond3.jpg)' }}>
+      <div className="w-100  max-w-4xl mx-auto mt-40 p-6 bg-white rounded">
+      
+      <div className="py-2">
+        <h2 className="text-4xl font-bold mb-4 text-center">Connexion </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+         <div className="mx-5">
+            <label htmlFor="" className="block text-lg text-gray-500 font-semibold">Email</label>
+            
+            <div className="relative">
+        <FontAwesomeIcon 
+          icon={faEnvelope} 
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"
+        />
+        <input
+           name="email"
+           onChange={handleChange}
+           type="email"
+           placeholder="Email..."
+           required
+          className="focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10 pr-4 py-2 border border-gray-300 rounded w-full"
+        />
+      </div>
+         </div>
+          <div className="mx-5">
+            <label htmlFor="" className="block text-lg text-gray-500 font-semibold">Mot de passe</label>
+             
+            <div className="relative">
+        <FontAwesomeIcon 
+          icon={faLock} 
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"
+        />
+        <input
+         name="password"
+         onChange={handleChange}
+         type="password"
+         placeholder="Mot de passe..."
+         required
+          className="focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10 pr-4 py-2 border border-gray-300 rounded  w-full"
+        />
+      </div>
+          </div>
+         <div className="mx-5">
+          <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+              Se connecter
+            </button>
+         </div>
+        </form>
+        <p className="mt-4 text-center">
         Vous n'avez pas encore de compte ?{" "}
         <Link to="/client/register" className="text-blue-600 hover:underline">
           Inscrivez-vous ici
         </Link>
       </p>
+      </div>
+     
     </div>
-  </div>
-    </div>
-  </div>
-);
 
- }
+    </div>
+      );}
