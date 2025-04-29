@@ -53,11 +53,11 @@ function Navbar() {
               </a>
             </div>
             <div className="flex gap-5">
-              <a href="#" className={`text-lg font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
+              <a href="/client/login" className={`text-lg font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
                 <p className="text-white  text-center p-2 rounded bg-blue-500 hover:bg-blue-600 cursor-pointer -mt-2">Connexion</p>
               </a>
-              <a href="#" className={`text-lg font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
-                <p className="hover:text-white  text-center p-1.5 rounded border border-blue-400 border-[2px] hover:bg-blue-400 cursor-pointer -mt-2">Inscription</p>
+              <a href="/client/register" className={`text-lg font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
+                <p className="hover:text-white  text-center p-1.5 rounded border border-blue-500 border-[2.5px] hover:bg-blue-500 cursor-pointer -mt-2">Inscription</p>
               </a>
             </div>
             

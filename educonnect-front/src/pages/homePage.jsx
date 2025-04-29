@@ -17,22 +17,25 @@ function EduconnectLanding() {
   const [commentaires, setCommentaires] = useState([]); // Initialisation de comments avec un tableau vide
 
   // Fonction pour récupérer les commentaires
-  const fetchComments = async () => {
+  const fetchCommentaires = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/commentaires', {
+      const response = await axios.get("http://localhost:8000/api/commentaires", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Si tu utilises Sanctum pour l'auth
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setCommentaires(response.data); // Stocke les commentaires dans l'état
+      setCommentaires(response.data);
     } catch (error) {
-      console.error("Erreur lors de la récupération des commentaires :", error);
+      console.error("Erreur lors du chargement des commentaires:", error);
+      toast.error("Erreur lors du chargement des commentaires");
     }
   };
 
+  // Charger les commentaires au montage de la page
   useEffect(() => {
-    fetchComments(); // Appel au chargement du composant
+    fetchCommentaires();
   }, []);
+
 
 
 
