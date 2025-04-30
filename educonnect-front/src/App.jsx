@@ -40,6 +40,7 @@ import LoginAdmin from "./pages/loginAdmin";
 import Services from "./pages/Services";
 import RepetiteurDetail from "./pages/RepetiteurDetail";
 import CreateCommentaire from "./pages/Commentaire";
+import Messagerie from "./pages/Messagerie";
 
 
 <ToastContainer position="top-right" autoClose={3000} />
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/profil/:id" element={<RepetiteurDetail />} />
         <Route path="/commentaire" element={<CreateCommentaire />} />
+        <Route path="/messagerie" element={<Messagerie />} />
         
 
 

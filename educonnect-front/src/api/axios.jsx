@@ -30,6 +30,9 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: "http://localhost:8000/api",
   withCredentials: true, // si tu utilises Sanctum
+  headers: {
+    Accept: "application/json",
+  },
 });
 
 api.interceptors.request.use(

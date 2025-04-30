@@ -1,56 +1,22 @@
-// // src/pages/Services.jsx
 
-// import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-
-// const Services = () => {
-//   const [repetiteurs, setRepetiteurs] = useState([]);
-
-//   useEffect(() => {
-//     fetch("http://127.0.0.1:8000/api/repetiteurs")
-//       .then((response) => response.json())
-//       .then((data) => setRepetiteurs(data))
-//       .catch((error) => console.error("Erreur lors du chargement :", error));
-//   }, []);
-
-//   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <h1 className="text-3xl font-bold mb-6 text-center">Nos Répétiteurs</h1>
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {repetiteurs.map((rep) => (
-//           <div key={rep.id} className="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center">
-//             <img
-//               src={rep.photo}
-//               alt={rep.nom}
-//               className="w-32 h-32 rounded-full object-cover mb-4"
-//             />
-//             <h2 className="text-xl font-semibold">{rep.nom}</h2>
-//             <p className="text-gray-500">{rep.age} ans</p>
-//             <p className="text-gray-500">{rep.ville}</p>
-//             <Link
-//               to={`/repetiteur/${rep.id}`}
-//               className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
-//             >
-//               Voir plus
-//             </Link>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Services;
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faArrowRight,  faStar } from "@fortawesome/free-solid-svg-icons";
+import Navbar from '../components/Navbar1';
+import Footer from "../components/Footercompo";
+
+
 
 const Services = () => {
   const [repetiteurs, setRepetiteurs] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [filteredRepetiteurs, setFilteredRepetiteurs] = useState([]);
   const navigate = useNavigate();
+  
 
   // Récupération automatique des répétiteurs depuis ta base via API
   useEffect(() => {
@@ -109,50 +75,78 @@ const Services = () => {
   // Redirection vers la page profil
   const handleVoirPlus = (id) => {
     navigate(`/profil/${id}`);
-  };
+  };  
+  
+ 
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Trouver un répétiteur</h1>
+    <>
+    <div className='py-20'>
+    <Navbar />
+    <div className="px-15">
+     
+     <h1 className="text-3xl font-bold m-5 text-center">Trouver un répétiteur</h1>
 
-      <div className="flex mb-6">
-        <input
-          type="text"
-          placeholder="Ex: répétiteur de maths 6e vivant à Douala"
-          className="flex-1 p-3 border rounded-l-lg"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-        <button
-          className="bg-blue-500 text-white px-6 py-3 rounded-r-lg"
-          onClick={handleSearch}
-        >
-          Rechercher
-        </button>
+     <div className="flex gap-3 mb-6">
+      <div className='flex w-full gap-2 p-3 border rounded'>
+      <FontAwesomeIcon icon={faSearch} className="text-gray-500 text-xl" />
+       <input
+         type="text"
+         placeholder="Ex: répétiteur de mathematiques 6e vivant à Douala"
+         className="flex-1 w-full"
+         value={searchInput}
+         onChange={(e) => setSearchInput(e.target.value)}
+       />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredRepetiteurs.map(rep => (
-          <div key={rep.id} className="border p-4 rounded-lg shadow hover:shadow-lg transition">
-            <img
-              src={rep.photoUrl || '/default-avatar.png'} // Mettre une image par défaut
-              alt={rep.nom}
-              className="w-full h-40 object-cover rounded-lg mb-4"
-            />
-            <h2 className="text-xl font-semibold">{rep.nom}</h2>
-            <p>Âge: {rep.age} ans</p>
-            <p>Ville: {rep.ville}</p>
-            <button
-              onClick={() => handleVoirPlus(rep.id)}
-              className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-            >
-              Voir plus
-            </button>
+       <button
+         className="bg-blue-500 text-white px-6 py-3 rounded"
+         onClick={handleSearch}
+       >
+         Rechercher
+       </button>
+     </div>
+     <div className='flex w-full justify-center'>
+     <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15">
+      
+      {filteredRepetiteurs.map(rep => (
+        <div key={rep.id} className="relative w-80  hover:shadow-lg transition">
+          {console.log(rep.photo)}
+         
+          <img
+            src={rep.photo ? `http://localhost:8000/storage/${rep.photo}` : '/default-avatar.png'}
+            alt={rep.nom}
+            className="w-full h-50 object-cover rounded-tl-lg rounded-tr-lg mb-4"
+          />
+           <div className="absolute top-[170px] left-[100px] flex gap-1 w-full justify-center items-center ">
+             <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
+             <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
+             <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
+             <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
+                           
+           </div>
+           <p className='font-bold text-blue-500 text-center text-xl'>50.000 fcfa</p>
+          <h2 className="text-xl text-center font-semibold">{rep.nom}</h2>
+          <p className='text-center'>Âge: {rep.age} ans</p>
+          <p className='text-center'>Ville: {rep.ville}</p>
+          <div className='flex w-full justify-center'> 
+           <button
+             onClick={() => handleVoirPlus(rep.id)}
+             className="mt-4 w-40 font-semibold text-lg bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 my-5 rounded-full"
+           >
+             Voir plus
+           </button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  );
+
+     </div>
+
+        </div>
+ <Footer />
+    </div>
+    </>
+      );
 };
 
 export default Services;

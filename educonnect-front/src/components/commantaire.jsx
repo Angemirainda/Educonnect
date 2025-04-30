@@ -10,11 +10,14 @@ const Commentaire = () => {
   // Fonction pour récupérer les commentaires
   const fetchCommentaires = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/commentaires", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:8000/api/commentaires",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setCommentaires(response.data); // mets les commentaires dans le state
     } catch (error) {
       console.error("Erreur lors du chargement des commentaires:", error);
@@ -76,7 +79,9 @@ const Commentaire = () => {
           commentaires.map((commentaire) => (
             <div key={commentaire.id} className="commentaire">
               <p>{commentaire.contenu}</p>
-              <small>Posté le {new Date(commentaire.created_at).toLocaleString()}</small>
+              <small>
+                Posté le {new Date(commentaire.created_at).toLocaleString()}
+              </small>
             </div>
           ))
         ) : (

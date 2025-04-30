@@ -34,20 +34,20 @@ function Navbar() {
           </h1>
           <div className=" flex gap-5 mt-2">
             <a
-                href="#"
-                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-gray-200" : "text-black hover:text-blue-700"}`}
+                href="/home"
+                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-blue-700" : "text-black hover:text-blue-700"}`}
               >
                 <p>Accueil</p>
               </a>
               <a
-                href="#"
-                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-gray-200" : "text-black hover:text-blue-700"}`}
+                href="repetiteur/register"
+                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-blue-700" : "text-black hover:text-blue-700"}`}
               >
               <p> Donner cours</p>
               </a>
               <a
                 href="#"
-                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-gray-200" : "text-black hover:text-blue-700"}`}
+                className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-blue-700" : "text-black hover:text-blue-700"}`}
               >
               <p> Contact</p>
               </a>
@@ -79,7 +79,7 @@ function Navbar() {
         <nav className="flex flex-col items-center max-sm:flex max-sm:w-full max-sm:pt-5 max-sm:bg-white max-sm:absolute max-sm:left-0 max-sm:right-0 max-sm:top-16 max-sm:shadow-lg">
           <a
             href="#"
-            className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-gray-200" : "text-black hover:text-blue-700"} py-3`}
+            className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-blcak" : "text-black hover:text-blue-700"} py-3`}
           >
             Accueil
           </a>
@@ -89,17 +89,7 @@ function Navbar() {
           >
             Donner cours
           </a>
-          <a
-            href="#"
-            className={`text-lg font-semibold ${isScrolled ? "text-white hover:text-gray-200" : "text-black hover:text-blue-700"} py-3`}
-          >
-            Contact
-          </a>
-          <div className="text-center p-2 rounded hover:bg-blue-600 cursor-pointer -mt-2">
-            <a href="#" className={`text-lg font-semibold ${isScrolled ? "text-white" : "text-black"}`}>
-              <p className="hover:text-white">Connexion</p>
-            </a>
-          </div>
+         
         </nav>
       )}
     </>

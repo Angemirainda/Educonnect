@@ -93,6 +93,12 @@ export default function ClientDashboard() {
             commentaire
           </Link>
         </button>
+        <button className="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-xl  font-semibold">
+          <Link to="/messagerie" className=" ">
+            Messagerie
+          </Link>
+        </button>
+        
     </div>
   );
 }

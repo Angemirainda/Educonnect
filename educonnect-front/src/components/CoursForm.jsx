@@ -2,9 +2,15 @@ import { useState, useEffect } from "react";
 
 const CoursForm = ({ currentCours, onSubmit }) => {
   const [nom, setNom] = useState(currentCours ? currentCours.name : "");
-  const [matieres, setMatieres] = useState(currentCours ? currentCours.matieres.join(", ") : "");
-  const [jours, setJours] = useState(currentCours ? currentCours.jours.join(", ") : "");
-  const [heure, setHeure] = useState(currentCours ? `${currentCours.heure_debut}-${currentCours.heure_fin}` : "");
+  const [matieres, setMatieres] = useState(
+    currentCours ? currentCours.matieres.join(", ") : ""
+  );
+  const [jours, setJours] = useState(
+    currentCours ? currentCours.jours.join(", ") : ""
+  );
+  const [heure, setHeure] = useState(
+    currentCours ? `${currentCours.heure_debut}-${currentCours.heure_fin}` : ""
+  );
 
   useEffect(() => {
     if (currentCours) {
@@ -32,7 +38,9 @@ const CoursForm = ({ currentCours, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-lg">
-      <h1 className="text-xl font-semibold">{currentCours ? "Modifier un cours" : "Ajouter un cours"}</h1>
+      <h1 className="text-xl font-semibold">
+        {currentCours ? "Modifier un cours" : "Ajouter un cours"}
+      </h1>
       <input
         type="text"
         placeholder="Nom du client"
@@ -61,7 +69,10 @@ const CoursForm = ({ currentCours, onSubmit }) => {
         onChange={(e) => setHeure(e.target.value)}
         className="border rounded w-full p-2 mb-2"
       />
-      <button type="submit" className="p-4 rounded text-xl font-semibold bg-blue-500 hover:bg-blue-700 text-white">
+      <button
+        type="submit"
+        className="p-4 rounded text-xl font-semibold bg-blue-500 hover:bg-blue-700 text-white"
+      >
         {currentCours ? "Modifier" : "Ajouter"}
       </button>
     </form>
