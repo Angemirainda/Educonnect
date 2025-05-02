@@ -1,49 +1,48 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
-
-
 function AdminNavbar() {
- 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
- 
 
   const navItems = [
     { path: '/admin/dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
-    { path: '/admin/repetiteurs', icon: 'fas fa-user', label: 'repetiteurs' },
-    { path: '/admin/clients', icon: 'fas fa-users', label: 'clients' },
-    { path: '/admin/messagerie', icon: 'fas fa-message', label: 'messagerie' },
-    { path: '/admin/contrats', icon: 'fas fa-comments', label: 'contrats' },
-    { path: '/admin/parametres', icon: 'fas fa-comments', label: 'parametres' }
+    { path: '/admin/repetiteurs', icon: 'fas fa-user', label: 'Répétiteurs' },
+    { path: '/admin/clients', icon: 'fas fa-users', label: 'Clients' },
+    { path: '/admin/messagerie', icon: 'fas fa-envelope', label: 'Messagerie' },
+    { path: '/admin/contrats', icon: 'fas fa-file-contract', label: 'Contrats' },
+    { path: '/admin/parametres', icon: 'fas fa-cog', label: 'Paramètres' },
   ];
 
   return (
     <>
       {/* Navbar fixe en haut */}
-      <nav className="fixed top-0 left-0 right-0 bg-white white:bg-gray-800 shadow-md z-50">
+      <nav className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
         <div className="max-w-full mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            
+            {/* Logo et titre à gauche */}
             <div className="flex items-center">
+              <img
+                src="../../image/logo.png" // Remplacez par l'URL de votre logo
+                alt="Logo"
+                className="w-8 h-8"
+              />
+              <span className="ml-3 text-lg font-semibold text-gray-900">
+                EDUCONNECT Admin
+              </span>
+            </div>
+
+            {/* Bouton hamburger à droite */}
+            <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="p-2 rounded-md text-gray-600 white:text-gray-300 hover:bg-gray-100 white:hover:bg-gray-700 focus:outline-none"
+                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none lg:hidden"
               >
                 <i className="fas fa-bars text-xl"></i>
               </button>
-              <div className="flex items-center ml-4">
-                
-                <span className="ml-2 text-lg font-semibold text-gray-900 white:text-white">
-                  EDUCONNECT Admin
-                </span>
-              </div>
-            </div>
 
-           
-            <div className="flex items-center space-x-4">
               {/* Icône de notification */}
-              <button className="p-2 rounded-full text-gray-600 dark:text-dark-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <i className="fas fa-bell text-xl"></i> {/* Icône de notification */}
+              <button className="p-2 rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none">
+                <i className="fas fa-bell text-xl"></i>
               </button>
 
               {/* Image de profil */}
@@ -55,10 +54,10 @@ function AdminNavbar() {
 
               {/* Bouton de déconnexion */}
               <button
-                className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-dark-300"
+                className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
               >
                 <i className="fas fa-sign-out-alt mr-2"></i>
-                
+                Déconnexion
               </button>
             </div>
           </div>
@@ -66,8 +65,8 @@ function AdminNavbar() {
       </nav>
 
       {/* Sidebar */}
-      <aside 
-        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white white:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out ${
+      <aside
+        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 z-40`}
       >
@@ -80,8 +79,8 @@ function AdminNavbar() {
                 className={({ isActive }) =>
                   `flex items-center px-4 py-3 text-sm rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-primary text-dark hover:bg-blue-100 white:hover:bg-gray-700'
-                      : 'text-gray-600 white:text-gray-300 hover:bg-gray-100 white:hover:bg-gray-700'
+                      ? 'bg-blue-100 text-blue-600'
+                      : 'text-gray-600 hover:bg-gray-100'
                   }`
                 }
               >
@@ -90,23 +89,20 @@ function AdminNavbar() {
               </NavLink>
             ))}
           </div>
-
-        
-          
         </nav>
       </aside>
 
       {/* Overlay pour mobile */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-30"
+          className="fixed inset-0 bg-black bg-opacity-30 lg:hidden z-30"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
 
       {/* Main content wrapper */}
       <div className={`pt-16 ${isSidebarOpen ? 'lg:ml-64' : ''} transition-all duration-300`}>
-        <main className="">
+        <main className="p-1">
           {/* Le contenu de la page sera injecté ici */}
         </main>
       </div>
