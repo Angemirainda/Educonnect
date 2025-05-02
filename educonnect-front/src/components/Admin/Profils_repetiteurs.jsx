@@ -257,6 +257,18 @@ const Profils = () => {
         console.error('Erreur lors du chargement des profils :', error);
       });
   }, []);
+useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest('.relative')) {
+          setOpenDropdownId(null);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+  }, []);
 
   const filteredTutors = tutors.filter(tutor =>
     tutor.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||

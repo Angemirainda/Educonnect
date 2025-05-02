@@ -242,6 +242,18 @@ const Clients = () => {
   useEffect(() => {
     fetchClients();
   }, []);
+useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest('.relative')) {
+          setOpenDropdownId(null);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+  }, []);
 
   const fetchClients = async () => {
     try {

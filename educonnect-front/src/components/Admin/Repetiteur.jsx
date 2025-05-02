@@ -38,19 +38,7 @@ const Repetiteurs = () => {
     }
   };
 
-  useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (!event.target.closest('.relative')) {
-          setOpenDropdownId(null);
-        }
-      };
   
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-  }, []);
-
   useEffect(() => {
       const handleClickOutside = (event) => {
         if (!event.target.closest('.relative')) {
