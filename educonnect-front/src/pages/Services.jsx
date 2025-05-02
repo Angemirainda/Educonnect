@@ -20,7 +20,7 @@ const Services = () => {
 
   // Récupération automatique des répétiteurs depuis ta base via API
   useEffect(() => {
-    axios.get('http://localhost:8000/api/repetiteurs') // Remplace l'URL si besoin
+    axios.get('http://localhost:8000/api/profils-repetiteurs') // Remplace l'URL si besoin
       .then(response => {
         setRepetiteurs(response.data);
         setFilteredRepetiteurs(response.data); // Par défaut, afficher tous les répétiteurs
