@@ -44,6 +44,7 @@ import Messagerie from "./pages/Messagerie";
 import Admin from './pages/Admin';
 import Dashboard from './components/Admin/Dashboard';
 import Repetiteur from './components/Admin/Repetiteur';
+import Profils from './components/Admin/Profils_repetiteurs';
 import Clients from './components/Admin/Client';
 <ToastContainer position="top-right" autoClose={3000} />
 
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard/>} />
           <Route path="repetiteurs" element={<Repetiteur/>} /> 
           <Route path="clients" element={<Clients/>} />
+          <Route path="Profils" element={<Profils/>} />
         </Route>
 
       </Routes>

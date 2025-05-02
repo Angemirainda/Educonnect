@@ -12,9 +12,10 @@ function AdminNavbar() {
     { path: '/admin/dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
     { path: '/admin/repetiteurs', icon: 'fas fa-user', label: 'repetiteurs' },
     { path: '/admin/clients', icon: 'fas fa-users', label: 'clients' },
+    { path: '/admin/profils', icon: 'fas fa-comments', label: 'profils repetiteurs' },
     { path: '/admin/messagerie', icon: 'fas fa-message', label: 'messagerie' },
     { path: '/admin/contrats', icon: 'fas fa-comments', label: 'contrats' },
-    { path: '/admin/parametres', icon: 'fas fa-comments', label: 'parametres' }
+   
   ];
 
   return (
