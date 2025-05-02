@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 const Repetiteurs = () => {
   // Données des répétiteurs
@@ -108,6 +108,19 @@ const Repetiteurs = () => {
       setIsDeleting(false);
     }
   };
+
+  useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest('.relative')) {
+          setOpenDropdownId(null);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+  }, []);
 
   // Badge de statut
   const getStatusBadge = (status) => {
