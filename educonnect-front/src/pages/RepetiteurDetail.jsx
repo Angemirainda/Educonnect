@@ -9,7 +9,7 @@ const RepetiteurDetail = () => {
   const [repetiteur, setRepetiteur] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/repetiteurs/${id}`)
+    fetch(`http://127.0.0.1:8000/api/profils-repetiteurs/${id}`)
       .then((response) => response.json())
       .then((data) => setRepetiteur(data))
       .catch((error) => console.error("Erreur lors du chargement :", error));

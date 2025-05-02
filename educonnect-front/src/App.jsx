@@ -44,6 +44,7 @@ import CreateCommentaire from "./pages/Commentaire";
 import Admin from './pages/Admin';
 import Dashboard from './components/Admin/Dashboard';
 import Repetiteur from './components/Admin/Repetiteur';
+import Profils from './components/Admin/Profils_repetiteurs';
 import Clients from './components/Admin/Client';
 import Messagerie from "./components/Admin/Messagerie";
 <ToastContainer position="top-right" autoClose={3000} />
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard/>} />
           <Route path="repetiteurs" element={<Repetiteur/>} /> 
           <Route path="clients" element={<Clients/>} />
+          <Route path="Profils" element={<Profils/>} />
           <Route path="messagerie" element={<Messagerie/>} />
           {/* Ajoutez d'autres routes pour les autres composants admin ici */}
         </Route>
