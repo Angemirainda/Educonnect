@@ -40,9 +40,12 @@ import LoginAdmin from "./pages/loginAdmin";
 import Services from "./pages/Services";
 import RepetiteurDetail from "./pages/RepetiteurDetail";
 import CreateCommentaire from "./pages/Commentaire";
-import Messagerie from "./pages/Messagerie";
 
-
+import Admin from './pages/Admin';
+import Dashboard from './components/Admin/Dashboard';
+import Repetiteur from './components/Admin/Repetiteur';
+import Clients from './components/Admin/Client';
+import Messagerie from "./components/Admin/Messagerie";
 <ToastContainer position="top-right" autoClose={3000} />
 
 export default function App() {
@@ -57,15 +60,21 @@ export default function App() {
         <Route path="/repetiteur/login" element={<LoginRepetiteur />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/client/dashboard" element={<ClientDashboard />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
         <Route path="/repetiteur/dashboard" element={<DashboardRepetiteur />} />
         <Route path="/profil/edit/:profilId" element={<CreateProfilRepetiteur />} />
         <Route path="/services" element={<Services />} />
         <Route path="/profil/:id" element={<RepetiteurDetail />} />
         <Route path="/commentaire" element={<CreateCommentaire />} />
-        <Route path="/messagerie" element={<Messagerie />} />
+     
         
-
+        <Route path="/admin/*" element={<Admin />}>
+          <Route path="dashboard" element={<Dashboard/>} />
+          <Route path="repetiteurs" element={<Repetiteur/>} /> 
+          <Route path="clients" element={<Clients/>} />
+          <Route path="messagerie" element={<Messagerie/>} />
+          {/* Ajoutez d'autres routes pour les autres composants admin ici */}
+        </Route>
 
       </Routes>
     </Router>
