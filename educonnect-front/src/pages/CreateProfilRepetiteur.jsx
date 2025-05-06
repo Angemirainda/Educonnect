@@ -257,7 +257,7 @@ export default function CreateProfilRepetiteur() {
                     </div>
 
                     {/* Champs texte */}
-                    {["nom", "age", "ville"].map((field) => (
+                    {/* {["nom", "age", "ville"].map((field) => (
                         <div key={field}>
                             <label className="block font-medium mb-2 capitalize">{field} </label>
                             <input
@@ -284,7 +284,7 @@ export default function CreateProfilRepetiteur() {
                                 max={field === "age" ? 50 : undefined}
                             />
                         </div>
-                    ))}
+                    ))} */}
 
                     {/* Description */}
                     <div>
@@ -375,76 +375,7 @@ export default function CreateProfilRepetiteur() {
                 </form>
 
                 {/* Aperçu */}
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                    <h2 className="text-3xl text-center m-3 font-bold mb-4">Aperçu du profil</h2>
-                    <div className="text-center space-y-4">
-                    <div className="flex justify-between px-10 ">
-                            <div className="mt-8">
-                                <h3 className="text-3xl text-blue-600  font-bold">{profil.nom || "Nom non renseigné"}</h3>
-                                <p className="text-2xl font-semibold">{profil.age ? `${profil.age} ans` : "Âge non renseigné"}</p>
-                                <p className="text-2xl font-semibold">{profil.ville || "Ville non renseignée"}</p>
-                            </div>
-                            {previewPhoto ? (
-                                    <img src={previewPhoto} alt="Preview" className="w-50 h-50 object-cover" />
-                                ) : (
-                                    <div className="w-50 h-50 mx-auto bg-gray-200 flex items-center justify-center">
-                                        <span className="text-gray-500">Pas de photo</span>
-                                    </div>
-                                )}
-                    </div>
-                    <p className="font-bold text-2xl py-4">A PROPOS DE MOI</p>
-                    <div className="flex items-center mt-4 rounded-xl shadow-lg px-2">
-                            <img src="/image/3959384.jpg" alt="" className="w-70 h-70" />
-                            <p className="text-sm">
-                            {profil.description || "Aucune description fournie"}
-                            </p>
-                    </div>
-                    
-
-                        {/* Disponibilités */}
-                        {profil.disponibilites.length > 0 ? (
-                            <div className="text-left  px-10">
-                                <p className="font-semibold">Disponibilités :</p>
-                                <ul className="list-disc pl-5">
-                                    {profil.disponibilites.map((day) => (
-                                        <li key={day} className="capitalize">{day}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) : (
-                            <p className="text-gray-500">Aucune disponibilité renseignée</p>
-                        )}
-
-                        {/* Cours */}
-                        {profil.cours.length > 0 ? (
-                            <div className="text-left  px-10">
-                                <p className="font-semibold">Cours enseignés :</p>
-                                <ul className="list-disc pl-5">
-                                    {profil.cours.map((cours) => (
-                                        <li key={cours}>{cours}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) : (
-                            <p className="text-gray-500">Aucun cours renseigné</p>
-                        )}
-
-                        {/* Niveaux */}
-                        {profil.niveaux.length > 0 ? (
-                            <div className="text-left  px-10">
-                                <p className="font-semibold">Niveaux enseignés :</p>
-                                <ul className="list-disc pl-5">
-                                    {profil.niveaux.map((niveau) => (
-                                        <li key={niveau}>{niveau}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) : (
-                            <p className="text-gray-500">Aucun niveau renseigné</p>
-                        )}
-                    </div>
-                </div>
-            </div>
+                           </div>
 
     </div>
             );

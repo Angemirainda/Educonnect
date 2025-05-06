@@ -405,7 +405,7 @@ export default function DashboardRepetiteur() {
             <div className="bg-white p-4 rounded shadow">
               <p className="text-gray-500">Cours en cours</p>
               <p className="text-2xl font-bold">
-                {coursList.filter(c => c.statut !== 'termine').length}
+                {coursList.filter(c => c.statut !== 'en').length}
               </p>
             </div>
           </div>

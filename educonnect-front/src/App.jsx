@@ -32,7 +32,6 @@ import LoginClient from "./pages/loginClient";
 import RegisterRepetiteur from "./pages/registerRepetiteur";
 import LoginRepetiteur from "./pages/loginRepetiteur";
 import CreateProfilRepetiteur from "./pages/CreateProfilRepetiteur";
-import AdminDashboard from "./pages/AdminDash";
 import ClientDashboard from "./pages/clientDash"
 import Home from "./pages/homePage"
 import DashboardRepetiteur from "./pages/repetiteurDash";
@@ -43,11 +42,18 @@ import CreateCommentaire from "./pages/Commentaire";
 
 import Admin from './pages/Admin';
 import Dashboard from './components/Admin/Dashboard';
-import Repetiteur from './components/Admin/Repetiteur';
+import RepetiteurAdmin from './components/Admin/Repetiteur';
 import Profils from './components/Admin/Profils_repetiteurs';
 import Clients from './components/Admin/Client';
-import Messagerie from "./components/Admin/Messagerie";
+import MessagerieAdmin from "./components/Admin/Messagerie";
+
+import Repetiteur from './pages/Repetiteur';
+import Creer_profil from './components/Repetiteur/Creer_profil';
+import MessagerieRepetiteur from './components/Repetiteur/Messagerie';
+import Rendez_vous from './components/Repetiteur/Rendez_vous';
+
 <ToastContainer position="top-right" autoClose={3000} />
+
 
 export default function App() {
   return (
@@ -71,12 +77,20 @@ export default function App() {
         
         <Route path="/admin/*" element={<Admin />}>
           <Route path="dashboard" element={<Dashboard/>} />
-          <Route path="repetiteurs" element={<Repetiteur/>} /> 
+          <Route path="repetiteurs" element={<RepetiteurAdmin/>} /> 
           <Route path="clients" element={<Clients/>} />
           <Route path="Profils" element={<Profils/>} />
-          <Route path="messagerie" element={<Messagerie/>} />
+          <Route path="messagerie" element={<MessagerieAdmin/>} />
           {/* Ajoutez d'autres routes pour les autres composants admin ici */}
         </Route>
+        
+        <Route path="/repetiteur/*" element={<Repetiteur />}>
+          <Route path="rendez_vous" element={<Rendez_vous/>} /> 
+          <Route path="creer_profil" element={<Creer_profil/>} />
+          <Route path="messagerie" element={<MessagerieRepetiteur/>} />
+          {/* Ajoutez d'autres routes pour les autres composants admin ici */}
+        </Route>
+        
 
       </Routes>
     </Router>

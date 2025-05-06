@@ -35,8 +35,8 @@ const Services = () => {
     const keywords = input.toLowerCase();
 
     // Exemple de listes à reconnaître automatiquement
-    const matieres = ['maths', 'francais', 'physique', 'chimie', 'anglais', 'svt', 'informatique'];
-    const niveaux = ['6e', '5e', '4e', '3e', '2nd', '1er', 'terminale'];
+    const matieres = ['mathematiques', 'francais', 'physique', 'chimie', 'anglais', 'svt', 'informatique'];
+    const niveaux = ['6e', '5e', '4e', '3e', '2nde', '1er', 'terminale'];
     const villes = ['douala', 'yaoundé', 'bafoussam', 'kribi', 'limbe', 'garoua'];
 
     let matiereTrouvee = matieres.find(m => keywords.includes(m));
@@ -124,8 +124,8 @@ const Services = () => {
              <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
                            
            </div>
-           <p className='font-bold text-blue-500 text-center text-xl'>50.000 fcfa</p>
           <h2 className="text-xl text-center font-semibold">{rep.nom}</h2>
+          <p className='font-bold text-blue-500 text-center text-xl'>{rep.prix} fcfa <span className='text-lg  font-medium text-black'> /1er cours offert</span></p>
           <p className='text-center'>Âge: {rep.age} ans</p>
           <p className='text-center'>Ville: {rep.ville}</p>
           <div className='flex w-full justify-center'> 

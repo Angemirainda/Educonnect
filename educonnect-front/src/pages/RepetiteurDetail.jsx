@@ -28,7 +28,8 @@ const RepetiteurDetail = () => {
       <div className="flex w-full justify-between px-40  gap-20 px-4">
         <div className="mt-25  ">
             <h1 className="text-6xl font-bold text-center">{repetiteur.nom}</h1>
-            <p className="text-center text-3xl mt-8">{repetiteur.age} ans - {repetiteur.ville}</p>
+            <p className="text-center text-3xl mt-5">{repetiteur.age} ans - {repetiteur.ville}</p>
+            <h1 className=" text-blue-500 text-3xl font-bold text-center mt-5">{repetiteur.prix} fcfa</h1>
             <div className="w-full flex justify-center mt-8">
               <button className="p-5 bg-blue-500 hover:bg-blue-700 font-semibold text-white text-2xl rounded">Entrer en contact</button>
             </div>
@@ -70,6 +71,9 @@ const RepetiteurDetail = () => {
           </ul>
          </div>
         </div>
+
+        
+
 
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-2">Niveaux</h2>

@@ -39,7 +39,7 @@ export default function LoginRepetiteur() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(repetiteur));
 
-      navigate("/repetiteur/dashboard");
+      navigate("/repetiteur/rendez_vous");
     } catch (err) {
       if (err.response?.status === 403) {
         alert("Votre compte est en attente de validation.");

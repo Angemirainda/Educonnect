@@ -14,6 +14,34 @@ function AdminNavbar() {
    
   ];
 
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token"); // ou depuis ton state/context
+  
+      const response = await fetch("http://127.0.0.1:8000/api/admin/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        // Supprimer le token et rediriger vers la page de connexion
+        localStorage.removeItem("token");
+        window.location.href = "/admin/login"; // ou utiliser useNavigate si tu utilises react-router
+      } else {
+        const data = await response.json();
+        alert("Erreur lors de la déconnexion : " + data.message);
+      }
+    } catch (error) {
+      console.error("Erreur :", error);
+      alert("Une erreur est survenue.");
+    }
+  };
+  
+
   return (
     <>
       {/* Navbar fixe en haut */}
@@ -54,12 +82,20 @@ function AdminNavbar() {
               />
 
               {/* Bouton de déconnexion */}
-              <button
+              {/* <button
                 className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
               >
                 <i className="fas fa-sign-out-alt mr-2"></i>
                 Déconnexion
-              </button>
+              </button> */}
+              <button
+  onClick={handleLogout}
+  className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
+>
+  <i className="fas fa-sign-out-alt mr-2"></i>
+  Déconnexion
+</button>
+
             </div>
           </div>
         </div>

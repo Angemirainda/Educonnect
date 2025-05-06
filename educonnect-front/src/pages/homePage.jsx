@@ -81,7 +81,11 @@ function EduconnectLanding() {
             <div className="rounded-full p-3"></div>
             <div className="w-full flex justify-center items-center">
               <motion.button type="submit" className="py-3 px-5 text-lg bg-blue-500 hover:bg-blue-700 w-60 text-white text-xl font-semibold rounded-tl-full rounded-br-full"   variants={itemVariants}
-            >Nos repetiteurs  <FontAwesomeIcon icon={faArrowRight} /></motion.button>
+            >
+            <Link to="/services" className="">
+                Nos repetiteurs  <FontAwesomeIcon icon={faArrowRight} />
+                </Link>
+            </motion.button> 
             </div>
           </div>
           <img src="image/hero2.jpg" alt="" className="w-350 " />

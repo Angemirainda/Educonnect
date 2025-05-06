@@ -1,5 +1,8 @@
-import React from "react";
+
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
+import DashboardRecentActivities from './affichageInfo';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,36 +25,86 @@ ChartJS.register(
 
 
 const Dashboard = () => {
-  const stats = [
-    {
-      title: "Total Répétiteurs",
-      value: "124",
-      change: "14",
-      isIncrease: true,
-      icon: "fas fa-user",
-    },
-    {
-      title: "Total Clients",
-      value: "238",
-      change: "8",
-      isIncrease: true,
-      icon: "fas fa-users",
-    },
-    {
-      title: "Contrats Actifs",
-      value: "89",
-      change: "23",
-      isIncrease: true,
-      icon: "fas fa-file-contract",
-    },
-    {
-      title: "Messages Non Lus",
-      value: "12",
-      change: "2",
-      isIncrease: false,
-      icon: "fas fa-envelope",
-    },
-  ];
+  
+
+  const [stats, setStats] = useState([]);
+  const [ setChartData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/statistiques")
+      .then(res => {
+        const data = res.data;
+
+        // Stats pour les cartes
+        const newStats = [
+          {
+            title: "Total utilisateurs",
+            value: data.total_utilisateurs,
+            change: 0,
+            isIncrease: true,
+            icon: "fas fa-users",
+          },
+          {
+            title: "Total clients",
+            value: data.total_clients,
+            change: 0,
+            isIncrease: true,
+            icon: "fas fa-user",
+          },
+          {
+            title: "Total répétiteurs",
+            value: data.total_repetiteurs,
+            change: 0,
+            isIncrease: true,
+            icon: "fas fa-file-contract",
+          },
+          {
+            title: "Répétiteurs actifs",
+            value: data.repetiteurs_actifs,
+            change: 0,
+            isIncrease: true,
+            icon: "fas fa-user-check",
+          },
+          {
+            title: "Répétiteurs inactifs",
+            value: data.repetiteurs_inactifs,
+            change: 0,
+            isIncrease: false,
+            icon: "fas fa-user-slash",
+          },
+        ];
+        setStats(newStats);
+
+        // Données pour le graphique
+        setChartData({
+          labels: ["Utilisateurs", "Clients", "Répétiteurs", "Actifs", "Inactifs"],
+          datasets: [
+            {
+              label: "Statistiques",
+              backgroundColor: "#4F46E5",
+              data: [
+                data.total_utilisateurs,
+                data.total_clients,
+                data.total_repetiteurs,
+                data.repetiteurs_actifs,
+                data.repetiteurs_inactifs,
+              ],
+            },
+          ],
+        });
+
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Erreur API :", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Chargement...</p>;
+
 
   // Données pour le graphique
   const chartData = {
@@ -129,8 +182,7 @@ const Dashboard = () => {
       <p className="text-gray-600 mb-6">
         Bienvenue sur le tableau de bord d'administration EDUCONNECT{" "}
       </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
           <div
             key={index}
@@ -138,9 +190,7 @@ const Dashboard = () => {
           >
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-sm font-medium text-gray-500">
-                  {stat.title}
-                </p>
+                <p className="text-sm font-medium text-gray-500">{stat.title}</p>
                 <p className="text-3xl font-bold mt-2">{stat.value}</p>
               </div>
               <div
@@ -151,7 +201,9 @@ const Dashboard = () => {
                     ? "bg-green-100 text-green-600"
                     : index === 2
                     ? "bg-purple-100 text-purple-600"
-                    : "bg-yellow-100 text-yellow-600"
+                    : index === 3
+                    ? "bg-yellow-100 text-yellow-600"
+                    : "bg-red-100 text-red-600"
                 }`}
               >
                 <i className={`${stat.icon} text-lg`}></i>
@@ -163,13 +215,14 @@ const Dashboard = () => {
               }`}
             >
               <span>
-                {stat.isIncrease ? "≈" : ""}
-                {stat.change}% depuis le mois dernier
+                {stat.isIncrease ? "≈" : ""}{stat.change}% depuis le mois dernier
               </span>
             </div>
           </div>
         ))}
       </div>
+
+        
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         {/* Section Graphique */}
@@ -197,38 +250,8 @@ const Dashboard = () => {
         </div>
 
         {/* Section Activités récentes */}
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-bold mb-4">Activités récentes</h2>
-          <div className="space-y-4">
-            {recentActivities.map((activity) => (
-              <div
-                key={activity.id}
-                className="flex items-start pb-4 border-b border-gray-100 last:border-0"
-              >
-                <div
-                  className={`p-2 rounded-full mr-4 ${
-                    activity.type.includes("utilisateur")
-                      ? "bg-blue-100 text-blue-600"
-                      : activity.type.includes("contrat")
-                      ? "bg-purple-100 text-purple-600"
-                      : activity.type.includes("Message")
-                      ? "bg-green-100 text-green-600"
-                      : "bg-yellow-100 text-yellow-600"
-                  }`}
-                >
-                  <i className={`${activity.icon} text-sm`}></i>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-medium">{activity.type}</h3>
-                  <p className="text-sm text-gray-600">
-                    {activity.description}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <DashboardRecentActivities />
+       
       </div>
     </div>
   );
