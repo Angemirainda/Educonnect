@@ -46,7 +46,7 @@ import RepetiteurAdmin from './components/Admin/Repetiteur';
 import Profils from './components/Admin/Profils_repetiteurs';
 import Clients from './components/Admin/Client';
 import MessagerieAdmin from "./components/Admin/Messagerie";
-
+import Messagerie from "./pages/Messagerie";
 import Repetiteur from './pages/Repetiteur';
 import Creer_profil from './components/Repetiteur/Creer_profil';
 import MessagerieRepetiteur from './components/Repetiteur/Messagerie';
@@ -73,6 +73,7 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/profil/:id" element={<RepetiteurDetail />} />
         <Route path="/commentaire" element={<CreateCommentaire />} />
+        <Route path="messagerie" element={<Messagerie/>} />
      
         
         <Route path="/admin/*" element={<Admin />}>
