@@ -46,6 +46,11 @@ import RepetiteurAdmin from './components/Admin/Repetiteur';
 import Profils from './components/Admin/Profils_repetiteurs';
 import Clients from './components/Admin/Client';
 import MessagerieAdmin from "./components/Admin/Messagerie";
+
+import Repet from './pages/Repet';
+import DashboardRepet from "./components/Repet/Dashboard";
+import ProfilRepet from "./components/Repet/profil";
+import MessagerieRepet from "./components/Repet/Messagerie";
 import Messagerie from "./pages/Messagerie";
 import Repetiteur from './pages/Repetiteur';
 import Creer_profil from './components/Repetiteur/Creer_profil';
@@ -91,8 +96,14 @@ export default function App() {
           <Route path="messagerie" element={<MessagerieRepetiteur/>} />
           {/* Ajoutez d'autres routes pour les autres composants admin ici */}
         </Route>
-        
 
+        <Route path="/Repet/*" element={<Repet />}>
+          <Route path="dashboard" element={<DashboardRepet />} />
+          <Route path="rendez-vous" element={<ClientDashboard />} />
+          <Route path="profil" element={<ProfilRepet />} />
+          <Route path="messagerie" element={<MessagerieRepet />} />
+          {/* Ajoutez d'autres routes pour les autres composants repetiteur ici */}
+        </Route>
       </Routes>
     </Router>
   );

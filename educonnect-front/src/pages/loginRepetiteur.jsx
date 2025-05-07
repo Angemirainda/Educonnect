@@ -39,7 +39,7 @@ export default function LoginRepetiteur() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(repetiteur));
 
-      navigate("/repetiteur/rendez_vous");
+      navigate("/Repet/dashboard");
     } catch (err) {
       if (err.response?.status === 403) {
         alert("Votre compte est en attente de validation.");
@@ -106,7 +106,7 @@ export default function LoginRepetiteur() {
             <p className="mt-4 text-center text-sm sm:text-base">
               Vous n'avez pas encore de compte ?{" "}
               <Link
-                to="/repetiteur/register"
+                to="/repetite/dashboard"
                 className="text-blue-500 hover:text-blue-700 hover:underline"
               >
                 Inscrivez-vous ici
@@ -118,6 +118,10 @@ export default function LoginRepetiteur() {
     </div>
   );
 }
+
+
+
+
 
 // import { useState } from "react";
 // import { useNavigate, Link } from "react-router-dom";
