@@ -18,7 +18,7 @@ const Profil = () => {
     subjects: ["Mathématiques", "Physique", "Chimie"],
     level: "Lycée et Université",
     city: "Paris",
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+   
   });
 
   const [editData, setEditData] = useState({...userData});
@@ -83,9 +83,7 @@ const Profil = () => {
                 <h2 className="text-2xl font-bold">{userData.name}</h2>
                 <p className="text-blue-100">{userData.username}</p>
                 <div className="mt-2 flex flex-wrap justify-center md:justify-start gap-2">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium bg-white bg-opacity-20 text-gray-500`}>
-                    <i className="fas fa-circle text-green-300 mr-1"></i> {userData.status}
-                  </span>
+                 
                   <span className="px-3 py-1 rounded-full text-sm font-medium bg-white bg-opacity-20 text-gray-500">
                     <i className="fas fa-map-marker-alt mr-1"></i> {userData.city}
                   </span>
@@ -114,20 +112,8 @@ const Profil = () => {
                   <i className="fas fa-user-circle mr-2 text-blue-500"></i> Informations Personnelles
                 </h3>
                 <div className="space-y-4">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">Email :</h4>
-                    <p className="mt-1 text-gray-900 flex items-center">
-                      <i className="fas fa-envelope mr-2 text-blue-400"></i> {userData.email}
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">Téléphone :</h4>
-                    <p className="mt-1 text-gray-900 flex items-center">
-                      <i className="fas fa-phone mr-2 text-blue-400"></i> 
-                      {userData.phone || <span className="text-gray-400">Non renseigné</span>}
-                    </p>
-                  </div>
+                 
+                 
                   
                   <div>
                     <h4 className="text-sm font-medium text-gray-500">Adresse :</h4>
@@ -145,17 +131,7 @@ const Profil = () => {
                     </p>
                   </div>
                   
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-500">Email vérifié :</h4>
-                    <p className="mt-1 text-gray-900 flex items-center">
-                      <i className="fas fa-check-circle mr-2 text-green-400"></i> 
-                      {userData.emailVerified ? (
-                        <span>{userData.emailVerified}</span>
-                      ) : (
-                        <span className="text-gray-400">Non vérifié</span>
-                      )}
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
 
@@ -428,3 +404,5 @@ const Profil = () => {
 };
 
 export default Profil;
+
+

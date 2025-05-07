@@ -1,105 +1,100 @@
 import React, { useState, useEffect } from 'react';
+import axios from '../../api/axios';
+import { useChat } from '../../hooks/useChat';
+import { database } from '../../services/firebase'; // Importez votre configuration Firebase
+import { ref, onValue } from 'firebase/database'; // Importez les fonctions Firebase nécessaires
 
 const Messagerie = () => {
-  const [conversations, setConversations] = useState([
-    {
-      id: 1,
-      client: 'Alexandre Martin',
-      lastMessage: 'Bonjour, je voudrais des renseignements',
-      time: '10:30',
-      unread: true,
-      messages: [
-        { text: 'Bonjour, je voudrais des renseignements', sent: false, time: '10:30' },
-        { text: 'Bien sûr, que souhaitez-vous savoir ?', sent: true, time: '10:32' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 2,
-      client: 'Élodie Dubois',
-      lastMessage: 'Est-ce possible de prévoir un cours samedi ?',
-      time: 'Hier',
-      unread: false,
-      messages: [
-        { text: 'Est-ce possible de prévoir un cours samedi ?', sent: false, time: 'Hier 14:00' },
-      ],
-    },
-    {
-      id: 3,
-      client: 'Lucas Bernard',
-      lastMessage: 'Merci pour votre aide !',
-      time: 'Lun',
-      unread: false,
-      messages: [
-        { text: 'Merci pour votre aide !', sent: false, time: 'Lun 09:15' },
-        { text: 'Avec plaisir, à votre service !', sent: true, time: 'Lun 09:20' },
-      ],
-    },
-  ]);
-
+  const [conversations, setConversations] = useState([]); // Liste des conversations
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedConversation, setSelectedConversation] = useState(null);
-  const [newMessage, setNewMessage] = useState('');
+  const [selectedConversation, setSelectedConversation] = useState(null); // Conversation sélectionnée
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [showConversationList, setShowConversationList] = useState(true);
+  const [newMessage, setNewMessage] = useState('');
+  const [currentUser, setCurrentUser] = useState(null); // Utilisateur connecté
 
+  // Utiliser le hook useChat pour la conversation sélectionnée
+  const roomId = selectedConversation?.id; // Utiliser l'ID de la conversation sélectionnée comme roomId
+  const { messages, sendMessage } = useChat(roomId); // Hook pour gérer les messages
+
+
+
+    // Récupérer les informations de l'utilisateur connecté
+    useEffect(() => {
+      const fetchCurrentUser = async () => {
+        try {
+          const response = await axios.get('/auth/me', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          });
+          setCurrentUser(response.data);
+        } catch (error) {
+          console.error('Erreur lors de la récupération de l’utilisateur connecté', error);
+        }
+      };
+  
+      fetchCurrentUser();
+    }, []);
+  // Récupérer les données des conversations depuis l'API
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+    const fetchConversations = async () => {
+      try {
+        const response = await axios.get('/users', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (!Array.isArray(response.data.repetiteurs)) {
+          console.error('Les données retournées ne sont pas un tableau');
+          return;
+        }
+
+        const transformedConversations = response.data.repetiteurs.map((user) => ({
+          id: user.id,
+          client: user.name,
+          lastMessage: '',
+          time: '',
+          unread: false,
+        }));
+
+        setConversations(transformedConversations);
+
+        // Écouter les messages pour chaque conversation
+        transformedConversations.forEach((conv) => {
+          const messagesRef = ref(database, `rooms/${conv.id}/messages`);
+          onValue(messagesRef, (snapshot) => {
+            const messagesData = snapshot.val();
+            if (messagesData) {
+              const messagesArray = Object.values(messagesData);
+              const lastMessage = messagesArray[messagesArray.length - 1];
+              setConversations((prevConversations) =>
+                prevConversations.map((c) =>
+                  c.id === conv.id
+                    ? {
+                        ...c,
+                        lastMessage: lastMessage.text,
+                        time: new Date(lastMessage.timestamp).toLocaleTimeString(),
+                      }
+                    : c
+                )
+              );
+            }
+          });
+        });
+      } catch (error) {
+        console.error('Erreur lors de la récupération des conversations', error);
+      }
+    
+      
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    
+    fetchConversations();
   }, []);
 
+  // Gérer la recherche
   const filteredConversations = conversations.filter(
     (conv) =>
       conv.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -115,28 +110,11 @@ const Messagerie = () => {
     setShowConversationList(true);
   };
 
-  const sendMessage = () => {
-    if (!newMessage.trim() || !selectedConversation) return;
+  const handleSendMessage = (text) => {
+    if (!text.trim() || !selectedConversation) return;
 
-    const updatedConversations = conversations.map((conv) => {
-      if (conv.id === selectedConversation.id) {
-        return {
-          ...conv,
-          lastMessage: newMessage,
-          time: 'Maintenant',
-          messages: [
-            ...conv.messages,
-            { text: newMessage, sent: true, time: 'Maintenant' },
-          ],
-        };
-      }
-      return conv;
-    });
-
-    setConversations(updatedConversations);
-    setSelectedConversation(
-      updatedConversations.find((c) => c.id === selectedConversation.id)
-    );
+    // Envoyer le message via Firebase
+    sendMessage(currentUser.id, text);
     setNewMessage('');
   };
 
@@ -239,16 +217,16 @@ const Messagerie = () => {
               </div>
               <div className="flex-1 p-4 overflow-y-auto bg-gray-100">
                 <div className="space-y-4">
-                  {selectedConversation.messages.map((msg, index) => (
+                  {messages.map((msg, index) => (
                     <div
                       key={index}
                       className={`flex ${
-                        msg.sent ? 'justify-end' : 'justify-start'
+                        msg.user == currentUser.id ? 'justify-end' : 'justify-start'
                       }`}
                     >
                       <div
                         className={`p-3 rounded-lg max-w-xs md:max-w-md shadow ${
-                          msg.sent
+                          msg.user == currentUser.id
                             ? 'bg-blue-500 text-white'
                             : 'bg-white'
                         }`}
@@ -256,12 +234,12 @@ const Messagerie = () => {
                         <p>{msg.text}</p>
                         <p
                           className={`text-xs mt-1 text-right ${
-                            msg.sent
+                            msg.user == currentUser.id
                               ? 'text-blue-100'
                               : 'text-gray-500'
                           }`}
                         >
-                          {msg.time}
+                          {new Date(msg.timestamp).toLocaleTimeString()}
                         </p>
                       </div>
                     </div>
@@ -281,12 +259,12 @@ const Messagerie = () => {
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={(e) =>
-                      e.key === 'Enter' && sendMessage()
+                      e.key === 'Enter' && handleSendMessage(newMessage)
                     }
                   />
                   <button
                     className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700"
-                    onClick={sendMessage}
+                    onClick={() => handleSendMessage(newMessage)}
                   >
                     <i className="fas fa-paper-plane"></i>
                   </button>
