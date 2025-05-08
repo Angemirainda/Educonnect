@@ -53,10 +53,6 @@ import ProfilRepet from "./components/Repet/profil";
 import MessagerieRepet from "./components/Repet/Messagerie";
 import Messagerie from "./pages/Messagerie";
 import Repetiteur from './pages/Repetiteur';
-import Creer_profil from './components/Repetiteur/Creer_profil';
-import MessagerieRepetiteur from './components/Repetiteur/Messagerie';
-import Rendez_vous from './components/Repetiteur/Rendez_vous';
-
 <ToastContainer position="top-right" autoClose={3000} />
 
 
@@ -90,16 +86,11 @@ export default function App() {
           {/* Ajoutez d'autres routes pour les autres composants admin ici */}
         </Route>
         
-        <Route path="/repetiteur/*" element={<Repetiteur />}>
-          <Route path="rendez_vous" element={<Rendez_vous/>} /> 
-          <Route path="creer_profil" element={<Creer_profil/>} />
-          <Route path="messagerie" element={<MessagerieRepetiteur/>} />
-          {/* Ajoutez d'autres routes pour les autres composants admin ici */}
-        </Route>
-
+        
         <Route path="/Repet/*" element={<Repet />}>
           <Route path="dashboard" element={<DashboardRepet />} />
-          <Route path="rendez-vous" element={<ClientDashboard />} />
+          
+        
           <Route path="profil" element={<ProfilRepet />} />
           <Route path="messagerie" element={<MessagerieRepet />} />
           {/* Ajoutez d'autres routes pour les autres composants repetiteur ici */}

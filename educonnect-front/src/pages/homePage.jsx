@@ -306,7 +306,7 @@ function EduconnectLanding() {
         viewport={{ once: true }}
       />
     </div>  
-      <section className="commentaires-section ">
+      {/* <section className="commentaires-section ">
         <h2 className="font-bold text-4xl text-center ">Commentaires :</h2>
         <div className=" bg-gray-50 px-20 ">
         {commentaires.length > 0 ? (
@@ -327,7 +327,49 @@ function EduconnectLanding() {
           <p>Aucun commentaire disponible.</p>
         )}
         </div>
-      </section>
+      </section> */}
+
+<section className="commentaires-section">
+  <h2 className="font-bold text-4xl text-center mb-8">Commentaires :</h2>
+  <div className="bg-gray-50 px-20 overflow-hidden relative h-[300px]"> {/* Cadre plus grand */}
+    {commentaires.length > 0 ? (
+      <motion.div
+        className="absolute flex gap-10"
+        initial={{ x: "100%" }} // Les commentaires commencent hors de l'écran à droite
+        animate={{ x: "-100%" }} // Les commentaires défilent vers la gauche
+        transition={{
+          repeat: Infinity,
+          duration: commentaires.length * 5, // Ajustez la vitesse en fonction du nombre de commentaires
+          ease: "linear",
+        }}
+      >
+        {commentaires.map((commentaire) => (
+          <div
+            key={commentaire.id}
+            className="commentaire-card min-w-[400px] max-w-[500px] bg-white p-6 mx-4 rounded-lg shadow-lg"
+          >
+            <p className="text-xl text-center">
+              <span className="text-2xl font-semibold">{commentaire.client.name}</span> a commenté :
+            </p>
+            <p className="text-center text-lg py-4">{commentaire.contenu}</p>
+            <div className="flex gap-1 w-full justify-center items-center mt-4">
+              <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
+              <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
+              <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
+            </div>
+            <div className="w-full flex justify-end mt-4">
+              <small className="font-bold">
+                Posté le {new Date(commentaire.created_at).toLocaleString()}
+              </small>
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    ) : (
+      <p className="text-center text-lg">Aucun commentaire disponible.</p>
+    )}
+  </div>
+</section>
      
     
       <FAQs />

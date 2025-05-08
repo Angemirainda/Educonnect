@@ -1,10 +1,10 @@
 import ChatRoom from '../components/chatRoom';
 import {useState} from 'react';
-import axios from '../../api/axios';
+// import axios from '../../api/axios';
 import{onSnapshot,doc} from 'firebase/firestore';
 const Messagerie=() =>{
     // const [roomId, setRoomId] = useState(null);
-    const res = ()=>{ axios.get('/users');}
+    // const res = ()=>{ axios.get('/users');}
       const conversation=res.data;
       
       conversation.forEach((conv)=>{
@@ -29,5 +29,5 @@ const Messagerie=() =>{
             </div>
         </div>
     );
-
+}
 export default Messagerie;

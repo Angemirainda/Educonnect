@@ -1,18 +1,67 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import api from '../api/axios'; // Assurez-vous que le chemin est correct
 
 function RepetNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate(); // Initialisez useNavigate
 
+  // const logout = async () => {
+  //   try {
+  //     // Appel à l'API de déconnexion
+  //     await api.post('repetiteurs/logout', {}, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('token')}`, // Inclure le token dans l'en-tête
+  //       },
+  //     });
+
+  //     // Supprimer le token du stockage local
+  //     localStorage.removeItem('token');
+
+  //     // Rediriger vers la page de connexion
+  //     navigate('repetiteur/login');
+  //   } catch (error) {
+  //     console.error('Erreur lors de la déconnexion :', error.response?.data || error.message);
+  //     alert('Erreur lors de la déconnexion');
+  //   }
+  // };
   const navItems = [
     { path: '/Repet/dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
-    { path: '/Repet/rendez-Vous', icon: 'fas fa-chart-line', label: 'Rendez-vous' },
+   
     { path: '/Repet/profil', icon: 'fas fa-user', label: 'Profil' },
     { path: '/Repet/messagerie', icon: 'fas fa-message', label: 'Messagerie' },
-    { path: '/admin/calendrier', icon: 'fas fa-date', label: 'calendrier' },
+    
    
    
   ];
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token"); // ou depuis ton state/context
+  
+      const response = await fetch("http://127.0.0.1:8000/api/repetiteurs/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        // Supprimer le token et rediriger vers la page de connexion
+        localStorage.removeItem("token");
+        window.location.href = "/repetiteur/login"; 
+      } else {
+        const data = await response.json();
+        alert("Erreur lors de la déconnexion : " + data.message);
+      }
+    } catch (error) {
+      console.error("Erreur :", error);
+      alert("Une erreur est survenue.");
+    }
+  };
+  
+
 
   return (
     <>
@@ -55,11 +104,14 @@ function RepetNavbar() {
 
               {/* Bouton de déconnexion */}
               <button
-                className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
-              >
-                <i className="fas fa-sign-out-alt mr-2"></i>
-                Déconnexion
-              </button>
+              onClick={handleLogout} // Ajoutez l'événement onClick pour appeler la fonction logout
+              className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
+            >
+              <i className="fas fa-sign-out-alt mr-2"></i>
+              Déconnexion
+            </button>
+
+            
             </div>
           </div>
         </div>

@@ -88,16 +88,19 @@ const Services = () => {
      <h1 className="text-3xl font-bold m-5 text-center">Trouver un répétiteur</h1>
 
      <div className="flex gap-3 mb-6">
-      <div className='flex w-full gap-2 p-3 border rounded'>
-      <FontAwesomeIcon icon={faSearch} className="text-gray-500 text-xl" />
-       <input
-         type="text"
-         placeholder="Ex: répétiteur de mathematiques 6e vivant à Douala"
-         className="flex-1 w-full"
-         value={searchInput}
-         onChange={(e) => setSearchInput(e.target.value)}
-       />
-      </div>
+     
+     
+       <div className="flex items-center border rounded p-2 w-full">
+          <FontAwesomeIcon icon={faSearch} className="text-gray-500 text-xl mr-2" />
+          <input
+            type="text"
+            placeholder="Ex: répétiteur de mathematiques 6e vivant à Douala"
+            className="flex-1 outline-none"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
+      
        <button
          className="bg-blue-500 text-white px-6 py-3 rounded"
          onClick={handleSearch}
@@ -115,9 +118,9 @@ const Services = () => {
           <img
             src={rep.photo ? `http://localhost:8000/storage/${rep.photo}` : '/default-avatar.png'}
             alt={rep.nom}
-            className="w-full h-50 object-cover rounded-tl-lg rounded-tr-lg mb-4"
+            className="w-full h-[330px] object-cover rounded-tl-lg rounded-tr-lg mb-4"
           />
-           <div className="absolute top-[170px] left-[100px] flex gap-1 w-full justify-center items-center ">
+           <div className="absolute top-[300px] left-[100px] flex gap-1 w-full justify-center items-center ">
              <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
              <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
              <FontAwesomeIcon icon={faStar} className="text-yellow-300" />

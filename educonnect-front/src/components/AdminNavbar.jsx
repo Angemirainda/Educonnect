@@ -89,12 +89,12 @@ function AdminNavbar() {
                 Déconnexion
               </button> */}
               <button
-  onClick={handleLogout}
-  className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
->
-  <i className="fas fa-sign-out-alt mr-2"></i>
-  Déconnexion
-</button>
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 text-sm text-red-600 hover:text-red-800 focus:outline-none"
+              >
+                <i className="fas fa-sign-out-alt mr-2"></i>
+                Déconnexion
+              </button>
 
             </div>
           </div>

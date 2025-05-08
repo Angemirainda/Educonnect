@@ -7,7 +7,7 @@ function RepetiteurNav() {
 
   const navItems = [
     // { path: '/repetiteur/dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
-    { path: '/repetiteur/rendez_vous', icon: 'fas fa-users', label: 'Mes rendez vous' },
+   
     { path: '/repetiteur/creer_profil', icon: 'fas fa-user', label: 'Creer mon profil' },
     { path: '/repetiteur/messagerie', icon: 'fas fa-message', label: 'Messagerie' },
     // { path: '/repetiteur/contrats', icon: 'fas fa-comments', label: 'contrats' },

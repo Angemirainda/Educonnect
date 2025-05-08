@@ -4,7 +4,7 @@ const DashboardRecentActivities = () => {
   const [recentActivities, setRecentActivities] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/last-registrations")
+    fetch("http://127.0.0.1:8000/api/last-registration")
       .then((res) => res.json())
       .then((data) => {
         const activities = [];
