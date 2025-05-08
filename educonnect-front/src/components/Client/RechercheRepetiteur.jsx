@@ -124,7 +124,7 @@ const Services = () => {
              <FontAwesomeIcon icon={faStar} className="text-yellow-300" />
                            
            </div>
-           <p className='font-bold text-blue-500 text-center text-xl'>50.000 fcfa</p>
+           <p className='font-bold text-blue-500 text-center text-xl'>{rep.prix} fcfa <span className='text-lg  font-medium text-black'> /1er cours offert</span></p>
           <h2 className="text-xl text-center font-semibold">{rep.nom}</h2>
           <p className='text-center'>Âge: {rep.age} ans</p>
           <p className='text-center'>Ville: {rep.ville}</p>

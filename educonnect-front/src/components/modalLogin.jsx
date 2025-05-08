@@ -50,7 +50,7 @@ export default function LoginModalButton() {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bienvenue ${user.name} !`);
       setShowModal(false); // Fermer la modal après connexion
-      navigate("/client/dashboard");
+      navigate("/clt/messagerie");
     } catch (err) {
       alert(err.response?.data?.message || "Erreur lors de la connexion");
     }
@@ -61,9 +61,9 @@ export default function LoginModalButton() {
       {/* Bouton pour ouvrir la modal */}
       <button
         onClick={() => setShowModal(true)}
-        className="mt-50 bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+        className="mt-55 bg-blue-600 text-lg text-white px-6 py-4 rounded-lg font-medium hover:bg-blue-800 transition"
       >
-        Se connecter
+        Beneficier de mes Services
       </button>
 
       {/* Modal */}

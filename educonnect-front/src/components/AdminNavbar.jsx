@@ -50,10 +50,10 @@ function AdminNavbar() {
           <div className="flex items-center justify-between h-16">
             {/* Logo et titre à gauche */}
             <div className="flex items-center">
-              <img
-                src="../../image/logo.png" // Remplacez par l'URL de votre logo
-                alt="Logo"
-                className="w-8 h-8"
+            <img
+                   src="/image/1.png" alt="logoEduconnect" className="w-17 rounded-full object-cover -mt-2" 
+                
+               
               />
               <span className="ml-3 text-lg font-semibold text-gray-900">
                 EDUCONNECT Admin

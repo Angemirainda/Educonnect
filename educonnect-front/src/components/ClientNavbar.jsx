@@ -23,12 +23,12 @@ function ClientNavbar() {
             {/* Logo et titre à gauche */}
             <div className="flex items-center">
               <img
-                src="../../image/logo.png" // Remplacez par l'URL de votre logo
-                alt="Logo"
-                className="w-8 h-8"
+                   src="/image/1.png" alt="logoEduconnect" className="w-17 rounded-full object-cover -mt-2" 
+                
+               
               />
               <span className="ml-3 text-lg font-semibold text-gray-900">
-                EDUCONNECT Admin
+                EDUCONNECT Client
               </span>
             </div>
 

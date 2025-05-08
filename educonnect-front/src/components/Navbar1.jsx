@@ -29,9 +29,12 @@ function Navbar() {
 
         {/* Menu pour grands écrans */}
         <nav className=" w-full justify-between flex">
+         <div className="flex gap-2">
+          <img src="/image/1.png" alt="logoEduconnect" className="w-20 rounded-full object-cover -mt-4" />
           <h1 className={`text-4xl font-bold ${isScrolled ? "text-white" : "text-blue-500"}`}>
             Educonnect
           </h1>
+         </div>
           <div className=" flex gap-5 mt-2">
             <a
                 href="/home"
