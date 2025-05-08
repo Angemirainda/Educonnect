@@ -178,7 +178,7 @@ export default function LoginClient() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bienvenue ${user.name} !`);
-      navigate("/client/dashboard");
+      navigate("/clt/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Erreur lors de la connexion");
     }

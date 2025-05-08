@@ -92,7 +92,7 @@ const Commentaire = () => {
   };
 
   return (
-    <div className="ajouter-commentaire">
+    <div className="ajouter-commentaire bg-red-500">
       <h2>Laisser un commentaire</h2>
       <form onSubmit={handleSubmit}>
         <textarea

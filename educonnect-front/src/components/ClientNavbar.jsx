@@ -6,8 +6,8 @@ function ClientNavbar() {
 
   const navItems = [
     { path: '/clt/dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
-    { path: '/clt/Rendez-vous', icon: 'fas fa-calendar', label: 'Rendez-vous' },
-    { path: '/clt/RechercheRepetiteur', icon: 'fas fa-search', label: 'Rechercher des repetiteurs' },
+    { path: '/clt/commentaire', icon: 'fas fa-calendar', label: 'commentaire' },
+    { path: '/clt/services', icon: 'fas fa-search', label: 'Rechercher un repetiteur' },
     { path: '/clt/paiement', icon: 'fas fa-money-bill', label: 'Paiement' },
     { path: '/clt/messagerie', icon: 'fas fa-message', label: 'Messagerie' },
    

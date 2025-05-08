@@ -39,7 +39,7 @@ import DashboardRepetiteur from "./pages/repetiteurDash";
 import LoginAdmin from "./pages/loginAdmin"; 
 import Services from "./pages/Services";
 import RepetiteurDetail from "./pages/RepetiteurDetail";
-import CreateCommentaire from "./pages/Commentaire";
+// import CreateCommentaire from "./pages/Commentaire";
 
 import Admin from './pages/Admin';
 import Dashboard from './components/Admin/Dashboard';
@@ -54,11 +54,12 @@ import ProfilRepet from "./components/Repet/profil";
 import MessagerieRepet from "./components/Repet/Messagerie";
 
 import Clt from './pages/Client';
-import ClientRendezvous from "./components/Client/Rendez-vous"; 
+import ClientRendezvous from "./components/Client/commentaire"; 
 import DashboardClient from "./components/Client/Dashboard";
-// import RechercheRepetiteur from "./components/Client/RechercheRepetiteur";
+import RechercheRepetiteur from "./components/Client/RechercheRepetiteur";
 import ClientPaiement from "./components/Client/Paiement";
 import ClientMessagerie from "./components/Client/Messagerie";
+import Commentaire from "./components/commantaire";
 // import ClientProfil from "./components/Client/Profil";
 <ToastContainer position="top-right" autoClose={3000} />
 
@@ -79,7 +80,7 @@ export default function App() {
         <Route path="/profil/edit/:profilId" element={<CreateProfilRepetiteur />} />
         <Route path="/services" element={<Services />} />
         <Route path="/profil/:id" element={<RepetiteurDetail />} />
-        <Route path="/commentaire" element={<CreateCommentaire />} />
+        {/* <Route path="/commentaire" element={<CreateCommentaire />} /> */}
      
         
         <Route path="/admin/*" element={<Admin />}>
@@ -102,11 +103,11 @@ export default function App() {
         <Route path="/clt/*" element={<Clt />} >
 
           <Route path="dashboard" element={<DashboardClient />} />
-          <Route path="Rendez-vous" element={<ClientRendezvous />} />
+          <Route path="commentaire" element={<Commentaire />} />
           <Route path="paiement" element={<ClientPaiement />} />
           <Route path="messagerie" element={<ClientMessagerie />} />
-          {/* <Route path="RechercheRepetiteur" element={<RechercheRepetiteur />} />
-          <Route path="Profil" element={<ClientProfil />} /> */}
+          <Route path="services" element={<RechercheRepetiteur />} />
+          {/* <Route path="Profil" element={<ClientProfil />} /> */}
           {/* Ajoutez d'autres routes pour les autres composants client ici */} 
         </Route>  
       </Routes>

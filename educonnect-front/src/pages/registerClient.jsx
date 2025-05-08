@@ -235,7 +235,7 @@ export default function RegisterClient() {
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/client/dashboard");
+      navigate("/clt/dashboard");
     } catch (error) {
       alert("Erreur : " + error.response.data.message);
     }

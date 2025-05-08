@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const Paiement = () => {
   const [invoices, setInvoices] = useState([
@@ -6,7 +8,7 @@ const Paiement = () => {
       id: 1,
       number: 'INV-001',
       date: '05 Mai 2025',
-      amount: 60.00,
+      amount: 35000,
       status: 'paid',
       pdfUrl: '#'
     },
@@ -14,7 +16,7 @@ const Paiement = () => {
       id: 2,
       number: 'INV-002',
       date: '12 Mai 2025',
-      amount: 45.00,
+      amount: 45000,
       status: 'pending',
       pdfUrl: '#'
     },
@@ -22,7 +24,7 @@ const Paiement = () => {
       id: 3,
       number: 'INV-003',
       date: '20 Mai 2025',
-      amount: 90.00,
+      amount: 4000,
       status: 'pending',
       pdfUrl: '#'
     }
@@ -120,7 +122,7 @@ const Paiement = () => {
                     </button>
                   </div>
                   <p className="text-gray-600 mt-1">
-                    Montant: <span className="font-bold">€{paymentModal.invoice?.amount.toFixed(2)}</span>
+                    Montant: <span className="font-bold">{paymentModal.invoice?.amount.toFixed(2)}FCFA</span>
                   </p>
                 </div>
                 
@@ -128,7 +130,7 @@ const Paiement = () => {
                   {/* Méthodes de paiement */}
                   <div className="mb-6">
                     <h4 className="text-sm font-medium text-gray-700 mb-3">
-                      Méthode de paiement 💳
+                      Méthode de paiement 
                     </h4>
                     <div className="grid grid-cols-3 gap-3">
                       <button
@@ -140,7 +142,7 @@ const Paiement = () => {
                         }`}
                       >
                         <span className="text-2xl mb-1">💳</span>
-                        <span className="text-xs">Carte</span>
+                        <span className="text-xs">carte</span>
                       </button>
                       <button
                         onClick={() => handlePaymentMethodChange('paypal')}
@@ -151,7 +153,7 @@ const Paiement = () => {
                         }`}
                       >
                         <span className="text-2xl mb-1">🔵</span>
-                        <span className="text-xs">PayPal</span>
+                        <span className="text-xs">Orange Money</span>
                       </button>
                       <button
                         onClick={() => handlePaymentMethodChange('transfer')}
@@ -162,7 +164,7 @@ const Paiement = () => {
                         }`}
                       >
                         <span className="text-2xl mb-1">🏦</span>
-                        <span className="text-xs">Virement</span>
+                        <span className="text-xs">Mobile Money</span>
                       </button>
                     </div>
                   </div>
@@ -186,8 +188,8 @@ const Paiement = () => {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
+                      <div className="grid  gap-4">
+                        <div className='w-full'>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Date d'expiration
                           </label>
@@ -197,21 +199,7 @@ const Paiement = () => {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                           />
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            CVV
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="text"
-                              placeholder="123"
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                            />
-                            <div className="absolute right-3 top-2 text-gray-400">
-                              <i className="fa fa-lock"></i>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                     </div>
                   )}
@@ -229,8 +217,8 @@ const Paiement = () => {
                       </>
                     ) : (
                       <>
-                        <span className="mr-2">💳</span>
-                        Payer €{paymentModal.invoice?.amount.toFixed(2)}
+                        <i className="fas fa-credit-card"></i> 
+                        Payer {paymentModal.invoice?.amount.toFixed(2)}FCFA
                       </>
                     )}
                   </button>
@@ -238,12 +226,12 @@ const Paiement = () => {
               </>
             ) : (
               <div className="p-6 text-center">
-                <div className="text-6xl mb-4">🎉</div>
+                <div className="text-6xl mb-4"></div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   Paiement réussi !
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Votre paiement de €{paymentModal.invoice?.amount.toFixed(2)} a été traité avec succès.
+                  Votre paiement de FCFA{paymentModal.invoice?.amount.toFixed(2)} a été traité avec succès.
                 </p>
                 <div className="bg-green-50 text-green-800 p-3 rounded-lg mb-6">
                   <i className="fa fa-check-circle mr-2"></i>
@@ -274,14 +262,15 @@ const Paiement = () => {
             <div>
               <p className="text-gray-500 text-sm font-medium">Total payé</p>
               <h2 className="text-3xl font-bold text-green-600 mt-1">
-                €{invoices
+                {invoices
                   .filter(inv => inv.status === 'paid')
                   .reduce((sum, inv) => sum + inv.amount, 0)
-                  .toFixed(2)}
+                  .toFixed(2)}FCFA
               </h2>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
-              <span className="text-xl">💰</span>
+            <i className="fas fa-file-invoice-dollar text-green-600"></i>
+
             </div>
           </div>
         </div>
@@ -292,17 +281,18 @@ const Paiement = () => {
             <div>
               <p className="text-gray-500 text-sm font-medium">À payer</p>
               <h2 className="text-3xl font-bold text-orange-600 mt-1">
-                €{invoices
+                {invoices
                   .filter(inv => inv.status === 'pending')
                   .reduce((sum, inv) => sum + inv.amount, 0)
-                  .toFixed(2)}
+                  .toFixed(2)}FCFA
               </h2>
               <p className="text-gray-500 text-sm mt-2">
                 {invoices.filter(inv => inv.status === 'pending').length} facture(s) en attente
               </p>
             </div>
             <div className="bg-orange-100 p-3 rounded-full">
-              <span className="text-xl">⏳</span>
+            <i className="fas fa-file-invoice-dollar text-red-500"></i>
+
             </div>
           </div>
         </div>
@@ -320,7 +310,8 @@ const Paiement = () => {
               </p>
             </div>
             <div className="bg-blue-100 p-3 rounded-full">
-              <span className="text-xl">📄</span>
+            <i className="fas fa-file-invoice-dollar text-blue-600"></i>
+
             </div>
           </div>
         </div>
@@ -353,7 +344,7 @@ const Paiement = () => {
                     <div className="text-sm text-gray-900">{invoice.date}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">€{invoice.amount.toFixed(2)}</div>
+                    <div className="text-sm text-gray-900">{invoice.amount.toFixed(2)}FCFA</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -374,10 +365,11 @@ const Paiement = () => {
                       </button>
                     ) : (
                       <button
+                      
                         onClick={() => openPaymentModal(invoice)}
-                        className=" hover:bg-green-200 text-white px-3 py-1 rounded-md text-sm flex items-center"
+                        className=" hover:bg-blue-200 text-white px-3 py-1 rounded-md text-sm flex items-center"
                       >
-                        <span className="mr-1">💳</span> Payer
+                        <span className="mr-1 text-blue-500"><i className="fas fa-credit-card"></i> </span> Payer
                       </button>
                     )}
                   </td>
