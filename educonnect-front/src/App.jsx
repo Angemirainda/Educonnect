@@ -52,6 +52,14 @@ import Repet from './pages/Repet';
 import DashboardRepet from "./components/Repet/Dashboard";
 import ProfilRepet from "./components/Repet/profil";
 import MessagerieRepet from "./components/Repet/Messagerie";
+
+import Clt from './pages/Client';
+import ClientRendezvous from "./components/Client/Rendez-vous"; 
+import DashboardClient from "./components/Client/Dashboard";
+// import RechercheRepetiteur from "./components/Client/RechercheRepetiteur";
+import ClientPaiement from "./components/Client/Paiement";
+import ClientMessagerie from "./components/Client/Messagerie";
+// import ClientProfil from "./components/Client/Profil";
 <ToastContainer position="top-right" autoClose={3000} />
 
 export default function App() {
@@ -90,6 +98,17 @@ export default function App() {
           <Route path="messagerie" element={<MessagerieRepet />} />
           {/* Ajoutez d'autres routes pour les autres composants repetiteur ici */}
         </Route>
+
+        <Route path="/clt/*" element={<Clt />} >
+
+          <Route path="dashboard" element={<DashboardClient />} />
+          <Route path="Rendez-vous" element={<ClientRendezvous />} />
+          <Route path="paiement" element={<ClientPaiement />} />
+          <Route path="messagerie" element={<ClientMessagerie />} />
+          {/* <Route path="RechercheRepetiteur" element={<RechercheRepetiteur />} />
+          <Route path="Profil" element={<ClientProfil />} /> */}
+          {/* Ajoutez d'autres routes pour les autres composants client ici */} 
+        </Route>  
       </Routes>
     </Router>
   );
