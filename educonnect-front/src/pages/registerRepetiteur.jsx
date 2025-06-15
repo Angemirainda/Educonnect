@@ -172,7 +172,7 @@ export default function RegisterRepetiteur() {
                 </motion.div>
                 <motion.div className="w-50 p-4 bg-white rounded text-center"  variants={itemVariants}>
                   <FontAwesomeIcon icon={faFileLines} className="text-2xl text-blue-500 " />
-                <p className="font-bold text-xl py-4"> Relevé du Bac <span className="text-blue-500">(PDF)</span></p>
+                <p className="font-bold text-xl py-4"> Piece d'identite <span className="text-blue-500">(PDF)</span></p>
                 </motion.div>
               </motion.div>
            

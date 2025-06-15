@@ -14,26 +14,8 @@ import {
 export default function Footer() {
   return (
     <div className="bg-[#0d2b4b] text-white">
-      {/* Section "Rejoignez-nous"
-      <div className=" border border-black py-10 mt-30 bg-white text-center">
-        <h2 className="text-black text-3xl font-bold mb-4">Rejoignez-nous dès maintenant</h2>
-        <p className="text-lg text-black font-medium px-6 md:px-20">
-          Laissez-nous un message pour toutes préoccupations, services ou orientations. Nous sommes disponibles pour vous aider.
-        </p>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-6">
-          <input
-            type="text"
-            placeholder="Votre message..."
-            className=" text-black w-full md:w-96 h-12 px-4 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button className="bg-blue-600 text-white px-6 py-2 h-12 w-30 rounded-lg font-medium hover:bg-blue-700 transition">
-            Valider
-          </button>
-        </div>
-      </div> */}
-
       {/* Footer principal */}
-      <footer className="px-15 py-10">
+      <footer className="px-15 py-10 mt-25">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Bloc 1 - Logo et slogan */}
           <div>
